@@ -6,6 +6,7 @@
     /* background-color: red; */
     grid-auto-rows: 1fr;
     gap: 0.5rem;
+    padding: 0.5rem;
 }
 
 /* .video-grid img {
