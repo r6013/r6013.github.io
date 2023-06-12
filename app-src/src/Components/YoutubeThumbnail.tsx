@@ -10,8 +10,8 @@ export function YoutubeThumbnail({
     youtubeId: string
     showThumbnail: boolean
     showPlayButton?: boolean
-    onClick: MouseEventHandler
-    playerReadyCount: number
+    onClick?: MouseEventHandler
+    playerReadyCount?: number
 }) {
     const hiResUrl = `https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`
     const mdResUrl = `https://i.ytimg.com/vi/${youtubeId}/mqdefault.jpg`

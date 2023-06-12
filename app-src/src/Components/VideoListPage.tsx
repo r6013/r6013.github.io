@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Header } from './Header'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { searchBands, searchVideos } from '../db'
-import { useNavigate, useSearch } from '@tanstack/react-location'
+import { Link, useNavigate, useSearch } from '@tanstack/react-location'
 import { YoutubePlayer } from './YoutubePlayer'
 import { VideoListItem } from './VideoListItem'
 import { Footer } from './Footer'
@@ -57,17 +57,70 @@ export function VideoListPage() {
             </Header>
             {videos && (
                 <div className="video-grid">
-                    {videos.map((video) => {
-                        return (
-                            <div>
-                                <YoutubeThumbnail youtubeId={video.url} />
-                                {/* <VideoListItem
+                    {videos
+                        .filter(
+                            (video) =>
+                                ![
+                                    'Grit Teeth',
+                                    'Dulvitund',
+                                    'Une Misére',
+                                ].includes(video.band)
+                        )
+                        .map((video) => {
+                            return (
+                                <Link to={`/videos/${video.video_id}`}>
+                                    <div>
+                                        <div
+                                            style={{
+                                                position: 'relative',
+                                                width: '100%',
+                                                height: '100%',
+                                            }}
+                                        >
+                                            <YoutubeThumbnail
+                                                youtubeId={video.url}
+                                                showThumbnail
+                                            />
+                                            <div
+                                                style={{
+                                                    position: 'absolute',
+                                                    bottom: 0,
+                                                    color: 'white',
+                                                    padding: '1rem',
+                                                }}
+                                            >
+                                                <h2
+                                                    style={{
+                                                        padding: 0,
+                                                        margin: '0.3rem 0',
+                                                    }}
+                                                >
+                                                    {video.band}
+                                                </h2>
+                                                <div>
+                                                    <div>{video.venue}</div>
+                                                    <div>
+                                                        {new Date(
+                                                            video.date
+                                                        ).toLocaleDateString(
+                                                            'is',
+                                                            {
+                                                                dateStyle:
+                                                                    'medium',
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <VideoListItem
                                     key={video.video_id}
                                     video={video}
                                 /> */}
-                            </div>
-                        )
-                    })}
+                                </Link>
+                            )
+                        })}
                 </div>
             )}
             <Footer />
