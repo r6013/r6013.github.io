@@ -6,6 +6,8 @@ import { useNavigate, useSearch } from '@tanstack/react-location'
 import { YoutubePlayer } from './YoutubePlayer'
 import { VideoListItem } from './VideoListItem'
 import { Footer } from './Footer'
+import './VideoListPage.css'
+import { YoutubeThumbnail } from './YoutubeThumbnail'
 
 export function VideoListPage() {
     const navigate = useNavigate()
@@ -53,10 +55,21 @@ export function VideoListPage() {
                     />
                 </div>
             </Header>
-            {videos &&
-                videos.map((video) => {
-                    return <VideoListItem key={video.video_id} video={video} />
-                })}
+            {videos && (
+                <div className="video-grid">
+                    {videos.map((video) => {
+                        return (
+                            <div>
+                                <YoutubeThumbnail youtubeId={video.url} />
+                                {/* <VideoListItem
+                                    key={video.video_id}
+                                    video={video}
+                                /> */}
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
             <Footer />
         </>
     )

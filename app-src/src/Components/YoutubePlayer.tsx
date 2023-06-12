@@ -2,6 +2,7 @@ import YouTube from 'react-youtube'
 import './YoutubePlayer.css'
 import { useEffect, useRef, useState } from 'react'
 import { useIsVisible } from './useIsVisible'
+import { YoutubeThumbnail } from './YoutubeThumbnail'
 
 const isSafari =
     navigator.vendor &&
@@ -109,74 +110,13 @@ export function YoutubePlayer(props: any) {
                             key={playerReady ? 'playerReady' : 'playerNotReady'}
                         />
                     )}
-                    <img
-                        src={thumbnailUrl}
-                        // src={`https://img.youtube.com/vi/${props.videoId}/maxresdefault.jpg`}
-                        // alt={`Myndband sem sýnir táknið ${props.title}`}
-                        // onError={(ev) => (ev.target.src = altUrl)}
-
-                        onLoadCapture={(ev) => {
-                            if (ev.currentTarget.naturalHeight <= 90) {
-                                setThumbnailUrl(altUrl)
-                            } else {
-                                setShowThumbnail(true)
-                            }
-                            // console.log('naturalwidth', ev.target.naturalHeight)
-                        }}
+                    <YoutubeThumbnail
+                        youtubeId={props.videoId}
+                        showThumbnail={showThumbnail}
                         onClick={playVideo}
-                        style={{
-                            objectFit: 'cover',
-                            width: '100%',
-                            // display: playerReadyCount >= 2 ? 'none' : undefined,
-                            display: showThumbnail ? undefined : 'none',
-                        }}
+                        showPlayButton
+                        playerReadyCount={playerReadyCount}
                     />
-                    {showThumbnail && (
-                        <span
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                height: '100%',
-                                width: '100%',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    position: 'absolute',
-                                    left: '50%',
-                                    top: '50%',
-                                    transform: 'translate(-50%,-50%)',
-                                    msTransform: 'translate(-50%,-50%)',
-                                    textAlign: 'center',
-                                    fontSize: '8em',
-                                    color: `rgba(255,255,255,${
-                                        playerReadyCount > 1 ? '0.7' : '0.3'
-                                    })`,
-                                    cursor: 'pointer',
-                                }}
-                                tabIndex={0}
-                                className="material-icons"
-                                onClick={playVideo}
-                            >
-                                play_circle
-                            </span>
-                            <span
-                                className="spin"
-                                style={{
-                                    display:
-                                        playerReadyCount > 1
-                                            ? 'none'
-                                            : undefined,
-                                    position: 'absolute',
-                                    textAlign: 'center',
-                                    fontSize: '8em',
-                                    color: 'rgba(255,255,255,0.7)',
-                                    cursor: 'pointer',
-                                }}
-                            ></span>
-                        </span>
-                    )}
                 </div>
             </div>
         </>
