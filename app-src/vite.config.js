@@ -14,7 +14,6 @@ export default defineConfig({
             devOptions: {
                 enabled: true,
             },
-            base: '/',
             manifest: {
                 name: 'R6013',
                 short_name: 'R6013',
@@ -55,8 +54,6 @@ export default defineConfig({
                     },
                 ],
             },
-
-            manifestFilename: '/manifest.webmanifest',
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg}'],
                 // globPatterns: ['**/*.{js,html,ico,png,svg,jpg,jpeg}'],
