@@ -397,25 +397,25 @@ async function run() {
         let filepathPrefix = `${import.meta.env.BASE_URL}`
         const filepaths = [`${filepathPrefix}assets/r6014.sqlite3.txt`]
         for (let filepath of filepaths) {
-            if (filepath.includes('db_data')) {
-                for await (let line of makeTextFileLineIterator(filepath)) {
-                    // console.log(line)
-                    try {
-                        db.exec(line)
-                    } catch (error) {
-                        console.error(error)
-                    }
-                }
-            } else {
-                for await (let line of splitTextFileBySemicolon(filepath)) {
-                    // console.log(line)
-                    try {
-                        db.exec(line)
-                    } catch (error) {
-                        console.error(error)
-                    }
+            // if (filepath.includes('db_data')) {
+            for await (let line of makeTextFileLineIterator(filepath)) {
+                // console.log(line)
+                try {
+                    db.exec(line)
+                } catch (error) {
+                    console.error(error)
                 }
             }
+            // } else {
+            // for await (let line of splitTextFileBySemicolon(filepath)) {
+            //     // console.log(line)
+            //     try {
+            //         db.exec(line)
+            //     } catch (error) {
+            //         console.error(error)
+            //     }
+            // }
+            // }
         }
         // db.exec()
         // db.exec('INSERT INTO user(name,id) VALUES("ÍTM",1)')
