@@ -113,7 +113,7 @@ export function VideoPage() {
                 )
                 // <VideoListItem video={video} key={video.video_id} />
             }
-            <div style={{ padding: '0 2rem' }}>
+            <div style={{ padding: '0 1rem' }}>
                 <h3>
                     Fleiri sett frá {show?.venue}{' '}
                     {new Date(show?.date).toLocaleDateString('is-IS', {
@@ -147,7 +147,7 @@ export function VideoPage() {
                 </div>
             </div>
 
-            <div style={{ padding: '0 2rem' }}>
+            <div style={{ padding: '0 1rem' }}>
                 <h3>Fleiri sett frá {video.band} </h3>
                 <div
                     className="related-videos"
