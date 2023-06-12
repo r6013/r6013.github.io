@@ -26,7 +26,6 @@ export function YoutubeThumbnail({
             {/* // <div className="video-container"> */}
             {/* <div> */}
             <img
-                loading="lazy"
                 className={showPlayButton ? '' : 'video-responsive'}
                 src={thumbnailUrl}
                 // src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
