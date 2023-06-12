@@ -1,4 +1,5 @@
-import { MouseEventHandler, useEffect, useState } from 'react'
+import { MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { useIsVisible } from './useIsVisible'
 
 export function YoutubeThumbnail({
     youtubeId,
@@ -25,6 +26,7 @@ export function YoutubeThumbnail({
             {/* // <div className="video-container"> */}
             {/* <div> */}
             <img
+                loading="lazy"
                 className={showPlayButton ? '' : 'video-responsive'}
                 src={thumbnailUrl}
                 // src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`}
