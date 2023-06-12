@@ -1,0 +1,19 @@
+.related-videos::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.related-videos {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    /* padding: 0 2rem; */
+    display: grid;
+    /* grid-template-columns: repeat(1fr); */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    /* // gridTemplateAreas: overlap; */
+    grid-auto-flow: column;
+    /* gridTemplateRows: 300px; */
+    gap: 1rem;
+    overflow-x: scroll;
+}

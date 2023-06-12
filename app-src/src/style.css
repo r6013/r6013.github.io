@@ -68,6 +68,12 @@ html {
         padding-bottom: var(--navbar-padding-bottom);
     }
 }
+@media screen and (display-mode: standalone) {
+    #root {
+        --navbar-padding-bottom: 4rem;
+        padding-bottom: var(--navbar-padding-bottom);
+    }
+}
 
 html,
 body {
@@ -80,7 +86,7 @@ body {
     /* height: calc(100% + env(safe-area-inset-top)); */
     height: 100%;
     /* padding-top: env(safe-area-inset-top); */
-    width: calc(min(100%, 800px));
+    width: calc(min(100%, 1000px));
     background-color: var(--background-color);
     color: var(--main-text-color);
 }

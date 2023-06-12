@@ -11,7 +11,7 @@ export function Footer({ children }: { children?: any }) {
     })
 
     return (
-        <footer>
+        <footer style={{ paddingBottom: 'calc(var(--navbar-padding-bottom))' }}>
             {children}
             <AppNavBar type="footer" />
         </footer>

@@ -8,6 +8,7 @@ import { VideoListItem } from './VideoListItem'
 import { Footer } from './Footer'
 import './VideoListPage.css'
 import { YoutubeThumbnail } from './YoutubeThumbnail'
+import { YoutubeLinkItem } from './YoutubeLinkItem'
 
 export function VideoListPage() {
     const navigate = useNavigate()
@@ -67,59 +68,7 @@ export function VideoListPage() {
                                 ].includes(video.band)
                         )
                         .map((video) => {
-                            return (
-                                <Link to={`/videos/${video.video_id}`}>
-                                    <div>
-                                        <div
-                                            style={{
-                                                position: 'relative',
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                        >
-                                            <YoutubeThumbnail
-                                                youtubeId={video.url}
-                                                showThumbnail
-                                            />
-                                            <div
-                                                style={{
-                                                    position: 'absolute',
-                                                    bottom: 0,
-                                                    color: 'white',
-                                                    padding: '1rem',
-                                                }}
-                                            >
-                                                <h2
-                                                    style={{
-                                                        padding: 0,
-                                                        margin: '0.3rem 0',
-                                                    }}
-                                                >
-                                                    {video.band}
-                                                </h2>
-                                                <div>
-                                                    <div>{video.venue}</div>
-                                                    <div>
-                                                        {new Date(
-                                                            video.date
-                                                        ).toLocaleDateString(
-                                                            'is',
-                                                            {
-                                                                dateStyle:
-                                                                    'medium',
-                                                            }
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <VideoListItem
-                                    key={video.video_id}
-                                    video={video}
-                                /> */}
-                                </Link>
-                            )
+                            return <YoutubeLinkItem video={video} />
                         })}
                 </div>
             )}

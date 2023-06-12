@@ -29,6 +29,66 @@ const listDefaultCollections = async () => {
     return defaultCollections
 }
 
+export const getBandsVideosByVideoId = async (id: number) => {
+    const result = await query(`
+        select distinct json_object(
+            'band',band.name,
+            'members', json_group_array(distinct json_object('name',person.name,'id',person.id)),
+            'video_id',video.id,
+            'show_id',video.show_id,
+            'url',video.url,
+            'band_id',video.band_id,
+            'venue',venue.venue_name,
+            'date',show.date
+            ) AS video_json
+        FROM video
+        JOIN band ON video.band_id = band.id
+        LEFT JOIN band_member ON band_member.band_id = band.id
+        LEFT JOIN person ON band_member.member_id = person.id
+        LEFT JOIN show ON video.show_id = show.id
+        LEFT JOIN venue ON venue.id = show.venue_id
+        WHERE band.id IN (SELECT band_id FROM video WHERE video.id = ${id})
+        GROUP BY video.id
+        ORDER BY show.date desc
+`)
+    DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].video_json))
+    return result.map((res) => JSON.parse(res.video_json))
+}
+
+export const getShowByVideoId = async (id: number) => {
+    const result = await query(`
+    SELECT
+        distinct json_object(
+            'sets', json_group_array(
+                    distinct json_object(
+                        'band',band.name,
+                        'video_id',video.id,
+                        'url',video.url,
+                        'band_id',video.band_id,
+                        'venue',venue.venue_name,
+                        'date',show.date
+                )),
+            'show_id',video.show_id,
+            'url',video.url,
+            'band_id',video.band_id,
+            'venue',venue.venue_name,
+            'date',show.date
+            ) AS show_json
+    FROM video
+    JOIN band ON video.band_id = band.id
+    LEFT JOIN band_member ON band_member.band_id = band.id
+    LEFT JOIN person ON band_member.member_id = person.id
+    LEFT JOIN show ON video.show_id = show.id
+    LEFT JOIN venue ON venue.id = show.venue_id
+    WHERE show.id IN (SELECT show_id FROM video WHERE video.id = ${id})
+    GROUP BY show.id
+    ORDER BY show.date desc
+`)
+    DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].show_json))
+    return result.map((res) => JSON.parse(res.show_json))[0]
+    JSON.parse(result[0].video_json)
+}
+
 export const getVideoById = async (id: number) => {
     console.log('getting video by id: ' + id)
     const result = await query(`
@@ -77,17 +137,16 @@ export const searchVideos = async ({
         : ''
     const result = await query(`
 
-            select distinct json_object(
-                'band',band.name,
-                'members', json_group_array(distinct json_object('name',person.name,'id',person.id)),
-                'video_id',video.id,
-                'show_id',video.show_id,
-                'url',video.url,
-                'band_id',video.band_id,
-                'venue',venue.venue_name,
-                'date',show.date
-
-        ) AS video_json
+        select distinct json_object(
+            'band',band.name,
+            'members', json_group_array(distinct json_object('name',person.name,'id',person.id)),
+            'video_id',video.id,
+            'show_id',video.show_id,
+            'url',video.url,
+            'band_id',video.band_id,
+            'venue',venue.venue_name,
+            'date',show.date
+            ) AS video_json
         FROM video
         JOIN band ON video.band_id = band.id
         LEFT JOIN band_member ON band_member.band_id = band.id
@@ -96,9 +155,41 @@ export const searchVideos = async ({
         LEFT JOIN venue ON venue.id = show.venue_id
         ${searchClause}
         GROUP BY video.id
+        ORDER BY show.date desc
     `)
     DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].video_json))
     return result.map((res) => JSON.parse(res.video_json))
+    JSON.parse(result[0].video_json)
+}
+
+export const getShowById = async ({ showId }: { showId: string | number }) => {
+    const result = await query(`
+        SELECT
+            distinct json_object(
+                'sets', json_group_array(
+                            distinct json_object(
+                                'band',band.name,
+                                'video_id',video.id,
+                                'url',video.url
+                            )),
+                'show_id',video.show_id,
+                'url',video.url,
+                'band_id',video.band_id,
+                'venue',venue.venue_name,
+                'date',show.date
+                ) AS show_json
+        FROM video
+        JOIN band ON video.band_id = band.id
+        LEFT JOIN band_member ON band_member.band_id = band.id
+        LEFT JOIN person ON band_member.member_id = person.id
+        LEFT JOIN show ON video.show_id = show.id
+        LEFT JOIN venue ON venue.id = show.venue_id
+        WHERE show.id = ${showId}
+        GROUP BY video.id
+        ORDER BY show.date desc
+    `)
+    DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].show_json))
+    return result.map((res) => JSON.parse(res.show_json))
     JSON.parse(result[0].video_json)
 }
 

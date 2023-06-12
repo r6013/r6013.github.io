@@ -3,7 +3,14 @@ import { ThemeContext } from './Components/ThemeContext'
 import SignPage from './Components/SignPage'
 import HomePage from './Components/Home'
 import { VideoListPage } from './Components/VideoListPage'
-import { query, getVideoById, getRandomVideo } from './db'
+import {
+    query,
+    getVideoById,
+    getRandomVideo,
+    getShowById,
+    getShowByVideoId,
+    getBandsVideosByVideoId,
+} from './db'
 import {
     ReactLocation,
     Router,
@@ -107,10 +114,18 @@ function App() {
                                     {
                                         path: ':id',
                                         element: <VideoPage />,
+
                                         loader: async ({ params }) => ({
                                             video: await getVideoById(
                                                 params.id
                                             ),
+                                            show: await getShowByVideoId(
+                                                params.id
+                                            ),
+                                            bandVideos:
+                                                await getBandsVideosByVideoId(
+                                                    params.id
+                                                ),
                                         }),
                                     },
                                 ],

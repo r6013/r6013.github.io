@@ -71,7 +71,7 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
         {
             route: '/random',
             icon: 'shuffle',
-            name: 'Tákn af handahófi',
+            name: 'Myndband af handahófi',
             type: type,
         },
     ]
