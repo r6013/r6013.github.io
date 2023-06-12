@@ -1,11 +1,6 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "band_member" (
-	"band_id" INTEGER NULL  ,
-	"member_id" INTEGER NULL,
-	FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
-	FOREIGN KEY("member_id") REFERENCES "people" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS "band_member" ("band_id" INTEGER NULL  ,"member_id" INTEGER NULL,FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,FOREIGN KEY("member_id") REFERENCES "people" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
 INSERT INTO band_member VALUES(169,545);
 INSERT INTO band_member VALUES(169,546);
 INSERT INTO band_member VALUES(169,547);
@@ -555,12 +550,7 @@ INSERT INTO band_member VALUES(337,1082);
 INSERT INTO band_member VALUES(337,644);
 INSERT INTO band_member VALUES(337,1083);
 INSERT INTO band_member VALUES(337,629);
-CREATE TABLE IF NOT EXISTS "band_show" (
-	"band_id" INTEGER NULL  ,
-	"show_id" INTEGER NULL,
-	FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
-	FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS "band_show" ("band_id" INTEGER NULL  ,"show_id" INTEGER NULL,FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
 INSERT INTO band_show VALUES(198,1);
 INSERT INTO band_show VALUES(275,1);
 INSERT INTO band_show VALUES(215,1);
@@ -676,14 +666,7 @@ INSERT INTO band_show VALUES(198,46);
 INSERT INTO band_show VALUES(287,46);
 INSERT INTO band_show VALUES(232,47);
 INSERT INTO band_show VALUES(286,48);
-CREATE TABLE IF NOT EXISTS "band" (
-	"id" INTEGER NOT NULL  ,
-	"name" VARCHAR(255) NOT NULL  ,
-	"genre" VARCHAR(255) NULL  ,
-	"date_started" DATETIME NULL  ,
-	"date_ended" DATETIME NULL  ,
-	PRIMARY KEY ("id")
-);
+CREATE TABLE IF NOT EXISTS "band" ("id" INTEGER NOT NULL  ,"name" VARCHAR(255) NOT NULL  ,"genre" VARCHAR(255) NULL  ,"date_started" DATETIME NULL  ,"date_ended" DATETIME NULL  ,PRIMARY KEY ("id"));
 INSERT INTO band VALUES(169,'0 (núll)','unknown','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO band VALUES(170,'AAIIIEEENNN','unknown','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO band VALUES(171,'Alvia Islandia','unknown','2000-01-01 00:00:00','2000-01-01 00:00:00');
@@ -852,26 +835,9 @@ INSERT INTO band VALUES(334,'Kisimjá','unknown','2000-01-01 00:00:00','2000-01-
 INSERT INTO band VALUES(335,'789 - 20. febrúar í R6013','unknown','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO band VALUES(336,'1012 - 10. sept í R6013','unknown','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO band VALUES(337,'Gavin Portland','Hardcore',NULL,NULL);
-CREATE TABLE IF NOT EXISTS "festival_show" (
-	"festival_id" INTEGER NULL  ,
-	"show_id" INTEGER NULL,
-	FOREIGN KEY("festival_id") REFERENCES "festivals" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
-	FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
-CREATE TABLE IF NOT EXISTS "festival" (
-	"id" INTEGER NOT NULL  ,
-	"festival_name" VARCHAR(255) NOT NULL  ,
-	"date_started" DATETIME NULL  ,
-	"date_ended" DATETIME NULL  ,
-	PRIMARY KEY ("id")
-);
-CREATE TABLE IF NOT EXISTS "person" (
-	"id" INTEGER NOT NULL  ,
-	"name" VARCHAR(255) NOT NULL  ,
-	"age" INTEGER NULL  ,
-	"gender" VARCHAR(255) NULL  ,
-	PRIMARY KEY ("id")
-);
+CREATE TABLE IF NOT EXISTS "festival_show" ("festival_id" INTEGER NULL  ,"show_id" INTEGER NULL,FOREIGN KEY("festival_id") REFERENCES "festivals" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
+CREATE TABLE IF NOT EXISTS "festival" (	"id" INTEGER NOT NULL  ,	"festival_name" VARCHAR(255) NOT NULL  ,	"date_started" DATETIME NULL  ,	"date_ended" DATETIME NULL  ,	PRIMARY KEY ("id"));
+CREATE TABLE IF NOT EXISTS "person" (	"id" INTEGER NOT NULL  ,	"name" VARCHAR(255) NOT NULL  ,	"age" INTEGER NULL  ,	"gender" VARCHAR(255) NULL  ,	PRIMARY KEY ("id"));
 INSERT INTO person VALUES(545,'Tómas Ísdal',0,'unknown');
 INSERT INTO person VALUES(546,'Dagur Gísla',0,'unknown');
 INSERT INTO person VALUES(547,'Sindri Ström',0,'unknown');
@@ -1276,13 +1242,7 @@ INSERT INTO person VALUES(1080,'Andrea Rán Jóhannsdóttir',NULL,'female');
 INSERT INTO person VALUES(1081,'Skaði Þórðardóttir',NULL,'female');
 INSERT INTO person VALUES(1082,'Kolbeinn Þór Þorgeirsson',NULL,'male');
 INSERT INTO person VALUES(1083,'Sindri Rafn Kamban',NULL,'male');
-CREATE TABLE IF NOT EXISTS "show" (
-	"id" INTEGER NOT NULL  ,
-	"venue_id" INTEGER NULL  ,
-	"date" DATE NULL  ,
-	PRIMARY KEY ("id"),
-	FOREIGN KEY("venue_id") REFERENCES "venues" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS "show" (	"id" INTEGER NOT NULL  ,	"venue_id" INTEGER NULL  ,	"date" DATE NULL  ,	PRIMARY KEY ("id"),	FOREIGN KEY("venue_id") REFERENCES "venues" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
 INSERT INTO show VALUES(1,2,'2019-01-01');
 INSERT INTO show VALUES(2,16,'2015-03-14');
 INSERT INTO show VALUES(3,9,'2013-08-15');
@@ -1331,14 +1291,7 @@ INSERT INTO show VALUES(45,17,'2013-06-21');
 INSERT INTO show VALUES(46,4,'2018-01-13');
 INSERT INTO show VALUES(47,17,'2018-05-04');
 INSERT INTO show VALUES(48,8,'2013-03-07');
-CREATE TABLE IF NOT EXISTS "venue" (
-	"id" INTEGER NOT NULL  ,
-	"venue_name" VARCHAR(255) NOT NULL  ,
-	"address" VARCHAR(255) NULL  ,
-	"date_opened" DATETIME NULL  ,
-	"date_closed" DATETIME NULL  ,
-	PRIMARY KEY ("id")
-);
+CREATE TABLE IF NOT EXISTS "venue" (	"id" INTEGER NOT NULL  ,	"venue_name" VARCHAR(255) NOT NULL  ,	"address" VARCHAR(255) NULL  ,	"date_opened" DATETIME NULL  ,	"date_closed" DATETIME NULL  ,	PRIMARY KEY ("id"));
 INSERT INTO venue VALUES(1,'Port','','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO venue VALUES(2,'Norðanpaunk','','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO venue VALUES(3,'Akranesviti','','2000-01-01 00:00:00','2000-01-01 00:00:00');
@@ -1356,15 +1309,7 @@ INSERT INTO venue VALUES(14,'R6013 á Menningarnótt','','2000-01-01 00:00:00','
 INSERT INTO venue VALUES(15,'Húrra','','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO venue VALUES(16,'Bar 11','','2000-01-01 00:00:00','2000-01-01 00:00:00');
 INSERT INTO venue VALUES(17,'Gaukurinn','','2000-01-01 00:00:00','2000-01-01 00:00:00');
-CREATE TABLE IF NOT EXISTS "video" (
-	"id" INTEGER NOT NULL  ,
-	"url" VARCHAR(255) NULL  ,
-	"show_id" INTEGER NULL  ,
-	"band_id" INTEGER NULL  ,
-	PRIMARY KEY ("id"),
-	FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
-	FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS "video" (	"id" INTEGER NOT NULL  ,	"url" VARCHAR(255) NULL  ,	"show_id" INTEGER NULL  ,	"band_id" INTEGER NULL  ,	PRIMARY KEY ("id"),	FOREIGN KEY("show_id") REFERENCES "shows" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,	FOREIGN KEY("band_id") REFERENCES "bands" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
 INSERT INTO video VALUES(1,'CawBoSel4pA',1,198);
 INSERT INTO video VALUES(2,'75MiNrJyx90',1,275);
 INSERT INTO video VALUES(3,'2NNMUv1pOQg',1,215);
@@ -1490,15 +1435,7 @@ INSERT INTO video VALUES(129,'v_7UwC7-56o',46,198);
 INSERT INTO video VALUES(130,'JQDOh-9Gtqs',46,287);
 INSERT INTO video VALUES(131,'ohppTy0vrLg',47,232);
 INSERT INTO video VALUES(132,'ij85CYBy3rc',48,286);
-CREATE TABLE IF NOT EXISTS "album" (
-        "id" INTEGER NOT NULL  ,
-        "band_id" INTEGER NOT NULL  ,
-        "title" VARCHAR(255) NOT NULL  ,
-        "genre" VARCHAR(255) NULL  ,
-        "discogs_id" VARCHAR(255) NULL  ,
-        "released" DATETIME NULL  ,
-        PRIMARY KEY ("id")
-);
+CREATE TABLE IF NOT EXISTS "album" (        "id" INTEGER NOT NULL  ,        "band_id" INTEGER NOT NULL  ,        "title" VARCHAR(255) NOT NULL  ,        "genre" VARCHAR(255) NULL  ,        "discogs_id" VARCHAR(255) NULL  ,        "released" DATETIME NULL  ,        PRIMARY KEY ("id"));
 INSERT INTO album VALUES(1,175,'Tohu Wa Bohu','Rock','6269834',2014);
 INSERT INTO album VALUES(2,175,'Rehearsal','Rock','10154537',0);
 INSERT INTO album VALUES(3,190,'BSÍ','Rock','1445693',2018);
@@ -2041,12 +1978,7 @@ INSERT INTO album VALUES(539,191,'This Home Will Be Our Grave','Rock','1120442',
 INSERT INTO album VALUES(540,191,'At The Borders Of Arcadia','Rock','562767',2008);
 INSERT INTO album VALUES(541,191,'Actress / Celestine','Rock','3774168',2009);
 INSERT INTO album VALUES(542,191,'Celestine','Rock','4642148',2012);
-CREATE TABLE IF NOT EXISTS "album_member" (
-        "album_id" INTEGER NULL  ,
-        "member_id" INTEGER NULL,
-        FOREIGN KEY("album_id") REFERENCES "albums" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
-        FOREIGN KEY("member_id") REFERENCES "people" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE TABLE IF NOT EXISTS "album_member" (        "album_id" INTEGER NULL  ,        "member_id" INTEGER NULL,        FOREIGN KEY("album_id") REFERENCES "albums" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,        FOREIGN KEY("member_id") REFERENCES "people" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION);
 INSERT INTO album_member VALUES(311,713);
 INSERT INTO album_member VALUES(311,584);
 INSERT INTO album_member VALUES(311,672);

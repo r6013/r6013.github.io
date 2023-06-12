@@ -9,9 +9,10 @@
     padding: 0.5rem;
 }
 
-/* .video-grid img {
-    filter: blur(2px);
-} */
+.video-grid img {
+    max-width: 400px;
+    /* filter: blur(2px); */
+}
 
 /* .video-grid img:hover {
     filter: blur(0);

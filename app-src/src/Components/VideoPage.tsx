@@ -148,7 +148,7 @@ export function VideoPage() {
             </div>
 
             <div style={{ padding: '0 1rem' }}>
-                <h3>Fleiri sett frá {video.band} </h3>
+                <h3>Fleiri sett frá {video?.band} </h3>
                 <div
                     className="related-videos"
                     // style={{
