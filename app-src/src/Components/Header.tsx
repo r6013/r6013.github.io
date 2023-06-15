@@ -66,15 +66,25 @@ export function Header({ children }: { children?: any }) {
                     justifyContent: 'space-evenly',
                     alignItems: 'center',
                     maxHeight: '2rem',
+                    padding: standalone ? '2rem' : undefined,
                 }}
             >
                 <Link
-                    style={{ paddingBottom: '0.5rem' }}
+                    style={{
+                        paddingBottom: standalone ? undefined : '3rem',
+                        width: '10rem',
+                    }}
                     to={'/'}
                     search={(old) => ({ ...old, scroll: 0 })}
                     className="heading"
                 >
-                    R6013
+                    <img
+                        src="/assets/images/r6013-logo.png"
+                        className="logo-image"
+                        alt=""
+                        width={'100%'}
+                    />
+                    {/* R6013 */}
                 </Link>
             </div>
             <AppNavBar type="header" />

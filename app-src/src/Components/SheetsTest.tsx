@@ -1,41 +1,56 @@
 import { google } from 'googleapis'
 import { useEffect, useState } from 'react'
+import useGoogleSheets from 'use-google-sheets'
 // 08a2971537164a34878e5f47a533d454
 
 export function SheetsTest() {
     const [data, setData] = useState()
+    const {
+        data: sheet,
+        loading,
+        error,
+    } = useGoogleSheets({
+        apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+        sheetId: import.meta.env.VITE_GOOGLE_SHEET_ID,
+    })
     useEffect(() => {
-        const init = async () => {
-            const A = 1
-            const Z = 999
-            const range = `Shows!A${A}:Z${Z}`
-            const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
-            const apiKey = 'AIzaSyDsMy-CYpbmGpoeLuhJWBQiPwN0NNK2v1I'
-            fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
-            )
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log({ data })
-                    const [header, ...rows] = data.values
-                    console.log({ header, rows })
-                    const shows = rows.map((row) => {
-                        return Object.fromEntries(
-                            row.map((val, idx) => {
-                                return [header[idx], val]
-                            })
-                        )
-                    })
-                    console.log({ shows })
-                    setData(shows)
-                })
+        console.log(sheet)
+        if (sheet) {
+            window.sheet = sheet
         }
-        init()
-    }, [])
+    }, [sheet])
+    // useEffect(() => {
+    //     const init = async () => {
+    //         const A = 1
+    //         const Z = 999
+    //         const range = `Shows!A${A}:Z${Z}`
+    //         const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
+    //         const apiKey = 'AIzaSyDsMy-CYpbmGpoeLuhJWBQiPwN0NNK2v1I'
+    //         fetch(
+    //             `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
+    //         )
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 console.log({ data })
+    //                 const [header, ...rows] = data.values
+    //                 console.log({ header, rows })
+    //                 const shows = rows.map((row) => {
+    //                     return Object.fromEntries(
+    //                         row.map((val, idx) => {
+    //                             return [header[idx], val]
+    //                         })
+    //                     )
+    //                 })
+    //                 console.log({ shows })
+    //                 setData(shows)
+    //             })
+    //     }
+    //     init()
+    // }, [])
     return (
         <div>
-            <div>{JSON.stringify(data)}</div>
-            {data && (
+            <div>{JSON.stringify(sheet)}</div>
+            {/* {data && (
                 <table>
                     <thead>
                         <tr>
@@ -56,7 +71,7 @@ export function SheetsTest() {
                         })}
                     </tbody>
                 </table>
-            )}
+            )} */}
         </div>
     )
 }

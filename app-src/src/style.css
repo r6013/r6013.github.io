@@ -486,3 +486,8 @@ input {
     border-radius: 10px;
     /* appearance: red; */
 }
+
+.logo-image {
+    background-color: white;
+    border-radius: 10px;
+}

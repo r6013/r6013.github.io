@@ -237,7 +237,7 @@ export const getShowsDataFromSheets = async () => {
     const Z = 999
     const range = `Shows!A${A}:Z${Z}`
     const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
-    const apiKey = import.meta.env.VITE_SHEETS_API_KEY
+    const apiKey = import.meta.env.VITE_GOOGLE_API_KEY
     // let shows = []
     console.log(
         `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
@@ -262,7 +262,7 @@ export const getShowsDataFromSheets = async () => {
                             return [header[idx], new Date(row[idx])]
                         }
                         if (header[idx] == 'bands') {
-                            return [header[idx], row[idx].split(',')]
+                            return [header[idx], JSON.parse(row[idx])]
                         }
                         return [header[idx], row[idx]]
                     })
@@ -270,6 +270,24 @@ export const getShowsDataFromSheets = async () => {
             })
         })
     return shows
+}
+
+import { GoogleSpreadsheet } from 'google-spreadsheet'
+import useGoogleSheets from 'use-google-sheets'
+export const sheetsApiTest = async () => {
+    //     // spreadsheet key is the long id in the sheets URL
+    // const doc = new GoogleSpreadsheet(import.meta.env.VITE_GOOGLE_SHEET_ID)
+    //     ;(async () => {
+    //         // use service account creds
+    //         await doc.useServiceAccountAuth({
+    //             client_email: import.meta.env.VITE_GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    //             private_key: import.meta.env.VITE_GOOGLE_PRIVATE_KEY,
+    //         })
+    //         await doc.loadInfo() // loads document properties and worksheets
+    //         console.log(doc.title)
+    //     })().catch((e) => {
+    //         console.log(e)
+    //     })
 }
 
 export { query, exportDB, listDefaultCollections, searchBands }
