@@ -55,6 +55,32 @@ export const getBandsVideosByVideoId = async (id: number) => {
     return result.map((res) => JSON.parse(res.video_json))
 }
 
+export const getRecentVideos = async (count: number) => {
+    const result = await query(`
+        select distinct json_object(
+            'band',band.name,
+            'members', json_group_array(distinct json_object('name',person.name,'id',person.id)),
+            'video_id',video.id,
+            'show_id',video.show_id,
+            'url',video.url,
+            'band_id',video.band_id,
+            'venue',venue.venue_name,
+            'date',show.date
+            ) AS video_json
+        FROM video
+        JOIN band ON video.band_id = band.id
+        LEFT JOIN band_member ON band_member.band_id = band.id
+        LEFT JOIN person ON band_member.member_id = person.id
+        LEFT JOIN show ON video.show_id = show.id
+        LEFT JOIN venue ON venue.id = show.venue_id
+        GROUP BY video.id
+        ORDER BY show.date desc
+        LIMIT ${count}
+`)
+    DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].video_json))
+    return result.map((res) => JSON.parse(res.video_json))
+}
+
 export const getShowByVideoId = async (id: number) => {
     const result = await query(`
     SELECT
@@ -204,6 +230,43 @@ export const getRandomVideo = async () => {
     const videos = await query(`select * from video order by random() limit 1`)
     DB_CONSOLE_LOGS && console.log(videos[0])
     return videos[0].id
+}
+
+export const getShowsDataFromSheets = async () => {
+    const A = 1
+    const Z = 999
+    const range = `Shows!A${A}:Z${Z}`
+    const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
+    const apiKey = 'AIzaSyDsMy-CYpbmGpoeLuhJWBQiPwN0NNK2v1I'
+    // let shows = []
+    const shows: {
+        name: string
+        date: Date
+        bands: string[]
+        venue: string
+    }[] = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
+    )
+        .then((res) => res.json())
+        .then((data) => {
+            console.log({ data })
+            const [header, ...rows] = data.values
+            console.log({ header, rows })
+            return rows.map((row) => {
+                return Object.fromEntries(
+                    row.map((trash, idx) => {
+                        if (header[idx] == 'date') {
+                            return [header[idx], new Date(row[idx])]
+                        }
+                        if (header[idx] == 'bands') {
+                            return [header[idx], row[idx].split(',')]
+                        }
+                        return [header[idx], row[idx]]
+                    })
+                )
+            })
+        })
+    return shows
 }
 
 export { query, exportDB, listDefaultCollections, searchBands }

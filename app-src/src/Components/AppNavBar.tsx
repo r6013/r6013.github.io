@@ -56,6 +56,13 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
             type: type,
             search: { id: 1 },
         },
+        {
+            route: '/videos',
+            icon: 'movie',
+            name: 'Myndbönd',
+            type: type,
+            search: { id: 1 },
+        },
         //        {
         //            route: '/leit',
         //            icon: 'search',

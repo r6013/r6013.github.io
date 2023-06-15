@@ -31,6 +31,8 @@ import { GetCollections } from './Components/GetCollections'
 import { Footer } from './Components/Footer'
 import { Header } from './Components/Header'
 import { VideoPage } from './Components/VideoPage'
+import { SheetsTest } from './Components/SheetsTest'
+import { NotionTest } from './Components/NotionTest'
 
 const reactLocation = new ReactLocation()
 
@@ -90,7 +92,8 @@ function App() {
                         routes={[
                             {
                                 path: '/',
-                                element: <VideoListPage />,
+                                element: <HomePage />,
+                                // element: <Navigate to={'/videos'} />,
                             },
                             {
                                 path: 'home',
@@ -138,6 +141,14 @@ function App() {
                             {
                                 path: 'default-collections',
                                 element: <GetCollections />,
+                            },
+                            {
+                                path: 'sheetstest',
+                                element: <SheetsTest />,
+                            },
+                            {
+                                path: 'notiontest',
+                                element: <NotionTest />,
                             },
                             {
                                 // Passing no route is equivalent to passing `path: '*'`
