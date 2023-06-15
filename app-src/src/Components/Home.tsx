@@ -30,34 +30,100 @@ export function HomePage() {
                         ?.filter((show) => show.date > new Date())
                         .map((show, idx) => {
                             return (
-                                <button
-                                    className="card"
-                                    style={{
-                                        display: 'block',
-                                        minHeight: '200px',
-                                        minWidth: '300px',
-                                        // backgroundColor: 'var(--accent-color)',
-                                        flexGrow: 1,
-                                    }}
-                                    key={show.name + idx}
-                                >
-                                    <h2>{show.bands.join(', ')}</h2>
-                                    <h2>{show.venue}</h2>
-                                    <i>
-                                        {show.date.toLocaleDateString('is-IS', {
-                                            dateStyle: 'full',
-                                        })}
-                                        {/* {show.date.toLocaleDateString()} */}
-                                    </i>
-                                    <p>
-                                        Eftir{' '}
-                                        {(
-                                            (show.date - new Date()) /
-                                            (1000 * 60 * 60 * 24)
-                                        ).toFixed(0)}{' '}
-                                        daga
-                                    </p>
-                                </button>
+                                <>
+                                    <button
+                                        onClick={() => {
+                                            const el = document.getElementById(
+                                                show.name
+                                            ) as HTMLDialogElement
+                                            el.showModal()
+                                        }}
+                                        className="card"
+                                        style={{
+                                            display: 'block',
+                                            minHeight: '200px',
+                                            minWidth: '300px',
+                                            // backgroundColor: 'var(--accent-color)',
+                                            flexGrow: 1,
+                                        }}
+                                        key={show.name + idx}
+                                    >
+                                        <h2>{show.bands.join(', ')}</h2>
+                                        <h2>{show.venue}</h2>
+                                        <i>
+                                            {show.date.toLocaleDateString(
+                                                'is-IS',
+                                                {
+                                                    dateStyle: 'full',
+                                                }
+                                            )}
+                                            {/* {show.date.toLocaleDateString()} */}
+                                        </i>
+                                        <p>
+                                            Eftir{' '}
+                                            {(
+                                                (show.date - new Date()) /
+                                                (1000 * 60 * 60 * 24)
+                                            ).toFixed(0)}{' '}
+                                            daga
+                                        </p>
+                                    </button>
+                                    <dialog
+                                        id={`${show.name}`}
+                                        onClick={(ev) => {
+                                            const dialog =
+                                                document.getElementById(
+                                                    show.name
+                                                ) as HTMLDialogElement
+                                            if (ev.target == dialog) {
+                                                dialog.close()
+                                            }
+                                        }}
+                                        style={{ maxWidth: '70vw' }}
+                                    >
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                            }}
+                                        >
+                                            <img
+                                                src={show.image}
+                                                alt=""
+                                                style={{
+                                                    maxWidth: '60%',
+                                                    outline: '1px solid black',
+                                                }}
+                                            />
+                                            <div
+                                                style={{
+                                                    // textAlign: 'center',
+                                                    // marginLeft: 'auto',
+                                                    // marginRight: 'auto',
+                                                    padding: '1rem',
+                                                }}
+                                            >
+                                                <h2
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    {show.venue}
+                                                </h2>
+                                                <p>
+                                                    {show.date.toLocaleDateString(
+                                                        'is-IS',
+                                                        { dateStyle: 'medium' }
+                                                    )}
+                                                </p>
+                                                <p>
+                                                    {show.bands.join(', ')} @{' '}
+                                                    {show.venue}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </dialog>
+                                </>
                             )
                         })}
                 </div>

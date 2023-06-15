@@ -239,9 +239,6 @@ export const getShowsDataFromSheets = async () => {
     const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
     const apiKey = import.meta.env.VITE_GOOGLE_API_KEY
     // let shows = []
-    console.log(
-        `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
-    )
     const shows: {
         name: string
         date: Date
