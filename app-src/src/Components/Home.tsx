@@ -25,7 +25,7 @@ export function HomePage() {
                     // style={{ display: 'flex', flexDirection: 'row' }}
                 >
                     {/* {JSON.stringify(shows)} */}
-                    {shows?.map((show) => {
+                    {shows?.map((show, idx) => {
                         return (
                             <button
                                 className="card"
@@ -36,6 +36,7 @@ export function HomePage() {
                                     // backgroundColor: 'var(--accent-color)',
                                     flexGrow: 1,
                                 }}
+                                key={show.name + idx}
                             >
                                 <h2>{show.bands.join(', ')}</h2>
                                 <h2>{show.venue}</h2>
@@ -59,7 +60,7 @@ export function HomePage() {
                     // }}
                 >
                     {recentVideos
-                        .filter(
+                        ?.filter(
                             (video) =>
                                 ![
                                     'Grit Teeth',
