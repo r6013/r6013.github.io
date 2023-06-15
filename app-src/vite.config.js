@@ -26,35 +26,35 @@ export default defineConfig({
                 background_color: '#FFFFFF',
                 icons: [
                     {
-                        src: 'assets/images/android-chrome-512x512.png',
+                        src: 'splash_screens/icon.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: 'any',
                     },
-                    {
-                        src: 'assets/images/manifest-icon-192.maskable.png',
-                        sizes: '192x192',
-                        type: 'image/png',
-                        purpose: 'any',
-                    },
-                    {
-                        src: 'assets/images/manifest-icon-192.maskable.png',
-                        sizes: '192x192',
-                        type: 'image/png',
-                        purpose: 'maskable',
-                    },
-                    {
-                        src: 'assets/images/manifest-icon-512.maskable.png',
-                        sizes: '512x512',
-                        type: 'image/png',
-                        purpose: 'any',
-                    },
-                    {
-                        src: 'assets/images/manifest-icon-512.maskable.png',
-                        sizes: '512x512',
-                        type: 'image/png',
-                        purpose: 'maskable',
-                    },
+                    // {
+                    //     src: 'assets/images/manifest-icon-192.maskable.png',
+                    //     sizes: '192x192',
+                    //     type: 'image/png',
+                    //     purpose: 'any',
+                    // },
+                    // {
+                    //     src: 'assets/images/manifest-icon-192.maskable.png',
+                    //     sizes: '192x192',
+                    //     type: 'image/png',
+                    //     purpose: 'maskable',
+                    // },
+                    // {
+                    //     src: 'assets/images/manifest-icon-512.maskable.png',
+                    //     sizes: '512x512',
+                    //     type: 'image/png',
+                    //     purpose: 'any',
+                    // },
+                    // {
+                    //     src: 'assets/images/manifest-icon-512.maskable.png',
+                    //     sizes: '512x512',
+                    //     type: 'image/png',
+                    //     purpose: 'maskable',
+                    // },
                 ],
             },
             workbox: {

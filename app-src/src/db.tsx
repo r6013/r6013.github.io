@@ -255,21 +255,21 @@ export const getShowsDataFromSheets = async () => {
             console.log({ data })
             const [header, ...rows] = data.values
             console.log({ header, rows })
-            return rows.map((row) => {
+            return rows.map((row: string[]) => {
                 return Object.fromEntries(
-                    row.map((trash, idx) => {
+                    row.map((val: string, idx: number) => {
                         if (header[idx] == 'date') {
-                            return [header[idx], new Date(row[idx])]
+                            return [header[idx], new Date(val)]
                         }
                         if (header[idx] == 'bands') {
-                            return [header[idx], JSON.parse(row[idx])]
+                            return [header[idx], JSON.parse(val)]
                         }
                         return [header[idx], row[idx]]
                     })
                 )
             })
         })
-    return shows
+    return shows.sort((a, b) => a.date - b.date)
 }
 
 import { GoogleSpreadsheet } from 'google-spreadsheet'

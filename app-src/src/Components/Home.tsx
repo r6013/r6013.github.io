@@ -18,6 +18,7 @@ export function HomePage() {
     return (
         <div>
             <Header></Header>
+
             <div style={{ padding: '0 1rem' }}>
                 <h3 style={{ padding: '0 1rem' }}>Tónleikar á næstunni</h3>
                 <div
@@ -25,30 +26,76 @@ export function HomePage() {
                     // style={{ display: 'flex', flexDirection: 'row' }}
                 >
                     {/* {JSON.stringify(shows)} */}
-                    {shows?.map((show, idx) => {
-                        return (
-                            <button
-                                className="card"
-                                style={{
-                                    display: 'block',
-                                    minHeight: '200px',
-                                    minWidth: '300px',
-                                    // backgroundColor: 'var(--accent-color)',
-                                    flexGrow: 1,
-                                }}
-                                key={show.name + idx}
-                            >
-                                <h2>{show.bands.join(', ')}</h2>
-                                <h2>{show.venue}</h2>
-                                <i>
-                                    {show.date.toLocaleDateString('is-IS', {
-                                        dateStyle: 'full',
-                                    })}
-                                    {/* {show.date.toLocaleDateString()} */}
-                                </i>
-                            </button>
-                        )
-                    })}
+                    {shows
+                        ?.filter((show) => show.date > new Date())
+                        .map((show, idx) => {
+                            return (
+                                <button
+                                    className="card"
+                                    style={{
+                                        display: 'block',
+                                        minHeight: '200px',
+                                        minWidth: '300px',
+                                        // backgroundColor: 'var(--accent-color)',
+                                        flexGrow: 1,
+                                    }}
+                                    key={show.name + idx}
+                                >
+                                    <h2>{show.bands.join(', ')}</h2>
+                                    <h2>{show.venue}</h2>
+                                    <i>
+                                        {show.date.toLocaleDateString('is-IS', {
+                                            dateStyle: 'full',
+                                        })}
+                                        {/* {show.date.toLocaleDateString()} */}
+                                    </i>
+                                    <p>
+                                        Eftir{' '}
+                                        {(
+                                            (show.date - new Date()) /
+                                            (1000 * 60 * 60 * 24)
+                                        ).toFixed(0)}{' '}
+                                        daga
+                                    </p>
+                                </button>
+                            )
+                        })}
+                </div>
+            </div>
+            <div style={{ padding: '0 1rem' }}>
+                <h3 style={{ padding: '0 1rem' }}>Síðustu tónleikar</h3>
+                <div
+                    className="related-videos"
+                    // style={{ display: 'flex', flexDirection: 'row' }}
+                >
+                    {/* {JSON.stringify(shows)} */}
+                    {shows
+                        ?.filter((show) => show.date < new Date())
+                        .sort((a, b) => b.date - a.date)
+                        .map((show, idx) => {
+                            return (
+                                <button
+                                    className="card"
+                                    style={{
+                                        display: 'block',
+                                        minHeight: '200px',
+                                        minWidth: '300px',
+                                        // backgroundColor: 'var(--accent-color)',
+                                        flexGrow: 1,
+                                    }}
+                                    key={show.name + idx}
+                                >
+                                    <h2>{show.bands.join(', ')}</h2>
+                                    <h2>{show.venue}</h2>
+                                    <i>
+                                        {show.date.toLocaleDateString('is-IS', {
+                                            dateStyle: 'full',
+                                        })}
+                                        {/* {show.date.toLocaleDateString()} */}
+                                    </i>
+                                </button>
+                            )
+                        })}
                 </div>
             </div>
             {/* <div style={{ padding: '0 1rem' }}> */}
