@@ -237,7 +237,7 @@ export const getShowsDataFromSheets = async () => {
     const Z = 999
     const range = `Shows!A${A}:Z${Z}`
     const sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs'
-    const apiKey = process.env.SHEETS_API_KEY
+    const apiKey = 'AIzaSyDsMy-CYpbmGpoeLuhJWBQiPwN0NNK2v1I' // process.env.SHEETS_API_KEY
     // let shows = []
     const shows: {
         name: string
