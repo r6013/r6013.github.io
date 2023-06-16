@@ -69,7 +69,15 @@ export function HomePage() {
                                             {/* {show.date.toLocaleDateString()} */}
                                         </i>
                                         <p>
-                                            {t('days_until_show', { count: 5 })}
+                                            {t('days_until_show', {
+                                                count: Number(
+                                                    (
+                                                        (show.date -
+                                                            new Date()) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    ).toFixed(0)
+                                                ),
+                                            })}
                                             {/* Eftir{' '}
                                             {(
                                                 (show.date - new Date()) /
