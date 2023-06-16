@@ -6,16 +6,21 @@ import { getRecentVideos, getShowsDataFromSheets } from '../db'
 import './VideoPage.css'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
 import { useTranslation } from 'react-i18next'
+import { useMatch } from '@tanstack/react-location'
 export function HomePage() {
-    const { data: shows, isLoading } = useQuery({
-        queryFn: () => getShowsDataFromSheets(),
-        queryKey: ['shows'],
-    })
+    // const { data: shows, isLoading } = useQuery({
+    //     queryFn: () => getShowsDataFromSheets(),
+    //     queryKey: ['shows'],
+    // })
 
-    const { data: recentVideos } = useQuery({
-        queryFn: () => getRecentVideos(5),
-        queryKey: ['recentVideos'],
-    })
+    // const { data: recentVideos } = useQuery({
+    //     queryFn: () => getRecentVideos(5),
+    //     queryKey: ['recentVideos'],
+    // })
+
+    const {
+        data: { shows, recentVideos },
+    } = useMatch()
 
     const { t, i18n, ready } = useTranslation()
 

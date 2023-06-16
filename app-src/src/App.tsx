@@ -10,6 +10,8 @@ import {
     getShowById,
     getShowByVideoId,
     getBandsVideosByVideoId,
+    getShowsDataFromSheets,
+    getRecentVideos,
 } from './db'
 import {
     ReactLocation,
@@ -95,6 +97,22 @@ function App() {
                             {
                                 path: '/',
                                 element: <HomePage />,
+                                loader: async () => {
+                                    const shows = await queryClient.fetchQuery({
+                                        queryFn: () => getShowsDataFromSheets(),
+                                        queryKey: ['shows'],
+                                    })
+                                    const recentVideos =
+                                        await queryClient.fetchQuery({
+                                            queryFn: () => getRecentVideos(5),
+                                            queryKey: ['recentVideos'],
+                                        })
+                                    // const { data: recentVideos } = useQuery({
+                                    // queryFn: () => getRecentVideos(5),
+                                    // queryKey: ['recentVideos'],
+                                    // })
+                                    return { shows, recentVideos }
+                                },
                                 // element: <Navigate to={'/videos'} />,
                             },
                             {
