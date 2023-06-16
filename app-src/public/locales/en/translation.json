@@ -1,6 +1,7 @@
 {
     "lol": "enska",
     "days_until_show": "In {{count}} days",
+    "days_since_show": "{{count}} days ago",
     "upcoming_shows": "Upcoming shows",
     "recent_shows": "Recent shows",
     "recent_videos": "Recent videos",

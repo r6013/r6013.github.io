@@ -107,13 +107,8 @@ function App() {
                                             queryFn: () => getRecentVideos(5),
                                             queryKey: ['recentVideos'],
                                         })
-                                    // const { data: recentVideos } = useQuery({
-                                    // queryFn: () => getRecentVideos(5),
-                                    // queryKey: ['recentVideos'],
-                                    // })
                                     return { shows, recentVideos }
                                 },
-                                // element: <Navigate to={'/videos'} />,
                             },
                             {
                                 path: 'home',

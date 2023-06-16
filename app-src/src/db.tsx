@@ -78,7 +78,19 @@ export const getRecentVideos = async (count: number) => {
         LIMIT ${count}
 `)
     DB_CONSOLE_LOGS && console.log(JSON.parse(result[0].video_json))
-    return result.map((res) => JSON.parse(res.video_json))
+    const output: {
+        band: string
+        members: { name: string; id: string | number }
+        video_id: string | number
+        show_id: string | number
+        url: string
+        band_id: string | number
+        venue: string
+        date: string | Date
+    }[] = result.map((res: { video_json: string }) =>
+        JSON.parse(res.video_json)
+    )
+    return output
 }
 
 export const getShowByVideoId = async (id: number) => {

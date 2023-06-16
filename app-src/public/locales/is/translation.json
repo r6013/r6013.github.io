@@ -1,6 +1,7 @@
 {
     "lol": "islenska",
     "days_until_show": "Eftir {{count}} daga",
+    "days_since_show": "Fyrir {{count}} dögum",
     "upcoming_shows": "Tónleikar á næstunni",
     "recent_shows": "Síðustu tónleikar",
     "recent_videos": "Nýleg myndbönd",
