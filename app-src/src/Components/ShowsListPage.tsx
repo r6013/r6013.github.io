@@ -70,6 +70,7 @@ export function ShowsListPage() {
                                 .toLocaleLowerCase()
                                 .includes(searchValue)
                         )
+                        .sort((a, b) => b.date - a.date)
                         .map((show) => {
                             return <ShowCard show={show} />
                         })}
