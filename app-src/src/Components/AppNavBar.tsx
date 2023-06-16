@@ -68,7 +68,7 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
         },
         {
             route: '/shows',
-            icon: 'music',
+            icon: 'list',
             name: t('nav_shows'),
             type: type,
             search: { id: 1 },
