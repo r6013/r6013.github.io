@@ -6,6 +6,7 @@ import { YoutubeLinkItem } from './YoutubeLinkItem'
 import { useTranslation } from 'react-i18next'
 import { MakeGenerics, useMatch } from '@tanstack/react-location'
 import { useEffect, useState } from 'react'
+import { Carousel } from './Carousel'
 type loaderGenerics = MakeGenerics<{
     LoaderData: {
         shows: {
@@ -192,16 +193,17 @@ export function HomePage() {
                 >
                     {t('upcoming_shows')}
                 </h3>
-                <div className="related-videos">
+                <Carousel>
                     {shows
                         ?.filter((show) => show.date > new Date())
                         .map((show, idx) => {
                             return <ShowCard show={show} />
                         })}
-                </div>
+                </Carousel>
+
                 <div style={{ padding: '0 1rem' }}>
                     <h3 style={{ padding: '0 1rem' }}>{t('recent_shows')}</h3>
-                    <div className="related-videos">
+                    <Carousel>
                         {/* {JSON.stringify(shows)} */}
                         {shows
                             ?.filter((show) => show.date < new Date())
@@ -209,12 +211,12 @@ export function HomePage() {
                             .map((show, idx) => {
                                 return <ShowCard show={show} />
                             })}
-                    </div>
+                    </Carousel>
                 </div>
             </div>
             <div style={{ padding: '0 1rem' }}>
                 <h3>{t('recent_videos')}</h3>
-                <div className="related-videos">
+                <Carousel>
                     {recentVideos
                         ?.filter(
                             (video) =>
@@ -234,7 +236,7 @@ export function HomePage() {
                                 </div>
                             )
                         })}
-                </div>
+                </Carousel>
             </div>
             <Footer />
         </div>

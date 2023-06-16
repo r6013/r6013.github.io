@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Header } from './Header'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { searchBands, searchVideos } from '../db'
+import { getShowsDataFromSheets, searchBands, searchVideos } from '../db'
 import { Link, useNavigate, useSearch } from '@tanstack/react-location'
 import { YoutubePlayer } from './YoutubePlayer'
 import { VideoListItem } from './VideoListItem'
@@ -11,8 +11,9 @@ import { YoutubeThumbnail } from './YoutubeThumbnail'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
 import { useTranslation } from 'react-i18next'
 import { Grid } from './Grid'
+import { ShowCard } from './Home'
 
-export function VideoListPage() {
+export function ShowsListPage() {
     const navigate = useNavigate()
     const searchParams = useSearch()
     const [searchValue, setSearchValue] = useState('')
@@ -31,9 +32,9 @@ export function VideoListPage() {
         })
     }
 
-    const { data: videos, isLoading } = useQuery({
-        queryFn: () => searchVideos({ searchQuery: searchValue }),
-        queryKey: ['videos', searchValue],
+    const { data: shows, isLoading } = useQuery({
+        queryFn: () => getShowsDataFromSheets(),
+        queryKey: ['shows'],
     })
     // if (isLoading) {
     //     return
@@ -53,29 +54,24 @@ export function VideoListPage() {
                     <input
                         onChange={(event) => handleSearch(event.target.value)}
                         type="search"
-                        placeholder={t('search_for_a_video')}
+                        placeholder={t('search_for_a_show')}
                         value={searchValue}
                         // style={{ height: '100%' }}
                         // ref={inputRef}
                     />
                 </div>
             </Header>
-            {videos && (
+            {shows && (
                 <Grid>
                     {/* <div className="video-grid"> */}
-                    {videos
-                        .filter(
-                            (video) =>
-                                ![
-                                    'Grit Teeth',
-                                    'Dulvitund',
-                                    'Une Misére',
-                                ].includes(video.band)
+                    {shows
+                        .filter((show) =>
+                            JSON.stringify(show)
+                                .toLocaleLowerCase()
+                                .includes(searchValue)
                         )
-                        .map((video) => {
-                            return (
-                                <YoutubeLinkItem video={video} key={video.id} />
-                            )
+                        .map((show) => {
+                            return <ShowCard show={show} />
                         })}
                     {/* </div> */}
                 </Grid>

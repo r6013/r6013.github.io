@@ -491,3 +491,62 @@ input {
     background-color: white;
     border-radius: 10px;
 }
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.carousel {
+    /* padding: 0 2rem; */
+    display: grid;
+    /* grid-template-columns: repeat(1fr); */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    /* // gridTemplateAreas: overlap; */
+    grid-auto-flow: column;
+    /* gridTemplateRows: 300px; */
+    gap: 1rem;
+    overflow-x: scroll;
+    justify-items: center;
+    padding: 1rem;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.grid {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
+    /* background-color: red; */
+    grid-auto-rows: 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.grid img {
+    max-width: 400px;
+    /* filter: blur(2px); */
+}
+
+/* .video-grid img:hover {
+    filter: blur(0);
+} */
+
+.thumbnail-info {
+    /* color: 'white'; */
+    /* width: 100%;
+    background: rgba(255, 255, 255, 0.1); */
+    /* background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+    ); */
+    /* border-radius: 10px;
+    backdrop-filter: blur(5px); */
+    /* object-fit: contain; */
+}

@@ -36,6 +36,8 @@ import { VideoPage } from './Components/VideoPage'
 import { SheetsTest } from './Components/SheetsTest'
 import { NotionTest } from './Components/NotionTest'
 import { useTranslation } from 'react-i18next'
+import { Test } from './Components/Test'
+import { ShowsListPage } from './Components/ShowsListPage'
 
 const reactLocation = new ReactLocation()
 
@@ -148,7 +150,32 @@ function App() {
                                     },
                                 ],
                             },
+                            {
+                                path: 'shows',
+                                children: [
+                                    {
+                                        path: '/',
+                                        element: <ShowsListPage />,
+                                    },
+                                    // {
+                                    //     path: ':id',
+                                    //     element: <VideoPage />,
 
+                                    //     loader: async ({ params }) => ({
+                                    //         video: await getVideoById(
+                                    //             params.id
+                                    //         ),
+                                    //         show: await getShowByVideoId(
+                                    //             params.id
+                                    //         ),
+                                    //         bandVideos:
+                                    //             await getBandsVideosByVideoId(
+                                    //                 params.id
+                                    //             ),
+                                    //     }),
+                                    // },
+                                ],
+                            },
                             {
                                 path: 'sql',
                                 element: <RawSql />,
@@ -158,8 +185,8 @@ function App() {
                                 element: <GetCollections />,
                             },
                             {
-                                path: 'sheetstest',
-                                element: <SheetsTest />,
+                                path: 'test',
+                                element: <Test />,
                             },
                             {
                                 path: 'notiontest',

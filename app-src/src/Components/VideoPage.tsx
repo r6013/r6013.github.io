@@ -133,7 +133,7 @@ export function VideoPage() {
                     })}
                 </h3>
                 <div
-                    className="related-videos"
+                    className="carousel"
                     // style={{
                     // }}
                 >
@@ -162,7 +162,7 @@ export function VideoPage() {
             <div style={{ padding: '0 1rem' }}>
                 <h3>{t('more_sets_from_band', { band: video?.band })} </h3>
                 <div
-                    className="related-videos"
+                    className="carousel"
                     // style={{
                     //     display: 'grid',
                     //     gridTemplateColumns: 'repeat(1fr)',
