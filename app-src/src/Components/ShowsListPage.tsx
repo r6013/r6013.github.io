@@ -11,7 +11,7 @@ import { YoutubeThumbnail } from './YoutubeThumbnail'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
 import { useTranslation } from 'react-i18next'
 import { Grid } from './Grid'
-import { ShowCard } from './Home'
+import { ShowCard } from './ShowCard'
 
 export function ShowsListPage() {
     const navigate = useNavigate()
@@ -68,7 +68,7 @@ export function ShowsListPage() {
                         .filter((show) =>
                             JSON.stringify(show)
                                 .toLocaleLowerCase()
-                                .includes(searchValue)
+                                .includes(searchValue.toLocaleLowerCase())
                         )
                         .sort((a, b) => b.date - a.date)
                         .map((show) => {
