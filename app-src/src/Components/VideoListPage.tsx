@@ -9,11 +9,14 @@ import { Footer } from './Footer'
 import './VideoListPage.css'
 import { YoutubeThumbnail } from './YoutubeThumbnail'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
+import { useTranslation } from 'react-i18next'
 
 export function VideoListPage() {
     const navigate = useNavigate()
     const searchParams = useSearch()
     const [searchValue, setSearchValue] = useState('')
+    const { t, i18n, ready } = useTranslation()
+
     useEffect(() => {
         setTimeout(() => {
             setSearchValue(searchParams.query ?? '')
@@ -49,7 +52,7 @@ export function VideoListPage() {
                     <input
                         onChange={(event) => handleSearch(event.target.value)}
                         type="search"
-                        placeholder="Leita að myndbandi"
+                        placeholder={t('search_for_a_video')}
                         value={searchValue}
                         // style={{ height: '100%' }}
                         // ref={inputRef}
@@ -68,7 +71,9 @@ export function VideoListPage() {
                                 ].includes(video.band)
                         )
                         .map((video) => {
-                            return <YoutubeLinkItem video={video} />
+                            return (
+                                <YoutubeLinkItem video={video} key={video.id} />
+                            )
                         })}
                 </div>
             )}

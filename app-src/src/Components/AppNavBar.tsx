@@ -7,6 +7,7 @@ import {
 import { Menu, Transition } from '@headlessui/react'
 import './AppNavBar.css'
 import { StyleHTMLAttributes } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function NavItem({
     route,
@@ -47,6 +48,8 @@ function NavItem({
 }
 
 export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
+    const { t, i18n, ready } = useTranslation()
+
     const navItems = [
         // { route: '/home', icon: 'home', name: 'Heim', type: type },
         {
@@ -59,7 +62,7 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
         {
             route: '/videos',
             icon: 'movie',
-            name: 'Myndbönd',
+            name: t('nav_videos'),
             type: type,
             search: { id: 1 },
         },
@@ -78,7 +81,7 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
         {
             route: '/random',
             icon: 'shuffle',
-            name: 'Myndband af handahófi',
+            name: t('nav_random_video'),
             type: type,
         },
     ]

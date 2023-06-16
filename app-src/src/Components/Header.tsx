@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-location'
 import { AppNavBar } from './AppNavBar'
 import { useEffect, useState } from 'react'
 import { DarkModeSwitch } from './DarkModeSwitch'
+import { useTranslation } from 'react-i18next'
 
 export function Header({ children }: { children?: any }) {
     const [standalone, setStandalone] = useState(false)
@@ -10,6 +11,7 @@ export function Header({ children }: { children?: any }) {
             setStandalone(true)
         }
     })
+    const { t, i18n, ready } = useTranslation()
 
     return (
         <header
@@ -44,8 +46,9 @@ export function Header({ children }: { children?: any }) {
                     }}
                 >
                     <span className="material-icons">install_mobile</span>
-                    <span>Vista app</span>
+                    <span>{t('save_app')}</span>
                 </div>
+
                 <div
                     className="dark-mode-switch-container"
                     style={{
@@ -54,9 +57,23 @@ export function Header({ children }: { children?: any }) {
                         right: '0',
                         padding: 0,
                         zIndex: 9999,
+                        display: 'flex',
+                        alignItems: 'center',
                     }}
                 >
                     <DarkModeSwitch />
+                    <button
+                        onClick={() => {
+                            const currentLanguage = i18n.language
+                            if (currentLanguage.includes('en')) {
+                                i18n.changeLanguage('is')
+                            } else {
+                                i18n.changeLanguage('en')
+                            }
+                        }}
+                    >
+                        {i18n.language.split('-')[0]}
+                    </button>
                 </div>
             </div>
             <div

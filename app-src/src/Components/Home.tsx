@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getRecentVideos, getShowsDataFromSheets } from '../db'
 import './VideoPage.css'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
+import { useTranslation } from 'react-i18next'
 export function HomePage() {
     const { data: shows, isLoading } = useQuery({
         queryFn: () => getShowsDataFromSheets(),
@@ -15,12 +16,16 @@ export function HomePage() {
         queryFn: () => getRecentVideos(5),
         queryKey: ['recentVideos'],
     })
+
+    const { t, i18n, ready } = useTranslation()
+
     return (
         <div>
             <Header></Header>
+            {t('lol')}
 
             <div style={{ padding: '0 1rem' }}>
-                <h3 style={{ padding: '0 1rem' }}>Tónleikar á næstunni</h3>
+                <h3 style={{ padding: '0 1rem' }}>{t('upcoming_shows')}</h3>
                 <div
                     className="related-videos"
                     // style={{ display: 'flex', flexDirection: 'row' }}
@@ -52,7 +57,7 @@ export function HomePage() {
                                         <h2>{show.venue}</h2>
                                         <i>
                                             {show.date.toLocaleDateString(
-                                                'is-IS',
+                                                i18n.language,
                                                 {
                                                     dateStyle: 'full',
                                                 }
@@ -60,12 +65,13 @@ export function HomePage() {
                                             {/* {show.date.toLocaleDateString()} */}
                                         </i>
                                         <p>
-                                            Eftir{' '}
+                                            {t('days_until_show', { count: 5 })}
+                                            {/* Eftir{' '}
                                             {(
                                                 (show.date - new Date()) /
                                                 (1000 * 60 * 60 * 24)
                                             ).toFixed(0)}{' '}
-                                            daga
+                                            daga */}
                                         </p>
                                     </button>
                                     <dialog
@@ -112,7 +118,7 @@ export function HomePage() {
                                                 </h2>
                                                 <p>
                                                     {show.date.toLocaleDateString(
-                                                        'is-IS',
+                                                        i18n.language,
                                                         { dateStyle: 'medium' }
                                                     )}
                                                 </p>
@@ -129,7 +135,7 @@ export function HomePage() {
                 </div>
             </div>
             <div style={{ padding: '0 1rem' }}>
-                <h3 style={{ padding: '0 1rem' }}>Síðustu tónleikar</h3>
+                <h3 style={{ padding: '0 1rem' }}>{t('recent_shows')}</h3>
                 <div
                     className="related-videos"
                     // style={{ display: 'flex', flexDirection: 'row' }}
@@ -154,9 +160,12 @@ export function HomePage() {
                                     <h2>{show.bands.join(', ')}</h2>
                                     <h2>{show.venue}</h2>
                                     <i>
-                                        {show.date.toLocaleDateString('is-IS', {
-                                            dateStyle: 'full',
-                                        })}
+                                        {show.date.toLocaleDateString(
+                                            i18n.language,
+                                            {
+                                                dateStyle: 'full',
+                                            }
+                                        )}
                                         {/* {show.date.toLocaleDateString()} */}
                                     </i>
                                 </button>
@@ -166,7 +175,7 @@ export function HomePage() {
             </div>
             {/* <div style={{ padding: '0 1rem' }}> */}
             <div style={{ padding: '0 1rem' }}>
-                <h3>Nýleg myndbönd </h3>
+                <h3>{t('recent_videos')}</h3>
                 <div
                     className="related-videos"
                     // style={{

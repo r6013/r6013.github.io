@@ -33,6 +33,7 @@ import { Header } from './Components/Header'
 import { VideoPage } from './Components/VideoPage'
 import { SheetsTest } from './Components/SheetsTest'
 import { NotionTest } from './Components/NotionTest'
+import { useTranslation } from 'react-i18next'
 
 const reactLocation = new ReactLocation()
 
@@ -46,6 +47,7 @@ const queryClient = new QueryClient({
 })
 
 function App() {
+    const { t, i18n, ready } = useTranslation()
     const [standalone, setStandalone] = useState(false)
     useEffect(() => {
         if (window.matchMedia('(display-mode: standalone)').matches) {
@@ -197,21 +199,15 @@ function App() {
                                     </button>
                                 </form>
                                 <div>
-                                    <h3>Vista app á síma</h3>
+                                    <h3>{t('directions_save_app_heading')}</h3>
+                                    <p>{t('directions_save_app_intro')}</p>
                                     <p>
-                                        Ef þú vilt vista síðuna sem app á
-                                        símanum þínum geturðu gert eftirfarandi:
+                                        <b>iPhone:</b>{' '}
+                                        {t('directions_save_app_iphone')}
                                     </p>
                                     <p>
-                                        <b>iPhone:</b> Valið „share“ takkann og
-                                        ýtt á Add to home screen.
-                                    </p>
-                                    <p>
-                                        <b>Android:</b> Sumir símar birta
-                                        skilaboð sem bjóða þér að „installa“
-                                        appinu. Á öðrum þarftu að velja share
-                                        takkann og annað hvort „Install app“ eða
-                                        „Add to home screen“.
+                                        <b>Android:</b>{' '}
+                                        {t('directions_save_app_android')}
                                     </p>
                                 </div>
                             </div>

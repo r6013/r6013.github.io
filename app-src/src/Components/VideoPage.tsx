@@ -7,6 +7,8 @@ import { Footer } from './Footer'
 import { YoutubePlayer } from './YoutubePlayer'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
 import './VideoPage.css'
+import { useTranslation } from 'react-i18next'
+
 // select distinct json_object(
 //     'sets', json_group_array(
 //                 distinct json_object(
@@ -21,6 +23,8 @@ import './VideoPage.css'
 //     'date',show.date
 //     ) AS show_json
 export function VideoPage() {
+    const { t, i18n, ready } = useTranslation()
+
     type videoGenerics = MakeGenerics<{
         LoaderData: {
             video: {
@@ -42,7 +46,7 @@ export function VideoPage() {
                 url: string
                 band_id: string | number
                 venue: string
-                date: string
+                date: Date
             }
             bandVideos: {
                 band: string
@@ -74,9 +78,12 @@ export function VideoPage() {
                                 {video.band} @ {video.venue}
                             </h2>
                             <p>
-                                {new Date(video.date).toLocaleDateString('is', {
-                                    dateStyle: 'long',
-                                })}
+                                {new Date(video.date).toLocaleDateString(
+                                    i18n.language,
+                                    {
+                                        dateStyle: 'long',
+                                    }
+                                )}
                             </p>
                         </div>
                         <YoutubePlayer videoId={video.url} />
@@ -99,7 +106,9 @@ export function VideoPage() {
                                 <Link>{video.venue}</Link>
                             </div>
                             <ul style={{ padding: 0 }}>
-                                <h3 style={{ margin: '0.5rem 0' }}>Meðlimir</h3>
+                                <h3 style={{ margin: '0.5rem 0' }}>
+                                    {t('band_members')}
+                                </h3>
                                 {video.members.map((member) => {
                                     return (
                                         <li style={{ padding: '0.2rem 0' }}>
@@ -115,9 +124,12 @@ export function VideoPage() {
             }
             <div style={{ padding: '0 1rem' }}>
                 <h3>
-                    Fleiri sett frá {show?.venue}{' '}
-                    {new Date(show?.date).toLocaleDateString('is-IS', {
-                        dateStyle: 'long',
+                    {t('more_sets_from_show', {
+                        show: `${show?.venue} ${new Date(
+                            show!.date
+                        ).toLocaleDateString(i18n.language, {
+                            dateStyle: 'long',
+                        })}`,
                     })}
                 </h3>
                 <div
@@ -148,7 +160,7 @@ export function VideoPage() {
             </div>
 
             <div style={{ padding: '0 1rem' }}>
-                <h3>Fleiri sett frá {video?.band} </h3>
+                <h3>{t('more_sets_from_band', { band: video?.band })} </h3>
                 <div
                     className="related-videos"
                     // style={{

@@ -1,7 +1,10 @@
 import { Link } from '@tanstack/react-location'
 import { YoutubeThumbnail } from './YoutubeThumbnail'
+import { useTranslation } from 'react-i18next'
 
 export function YoutubeLinkItem({ video }) {
+    const { t, i18n, ready } = useTranslation()
+
     return (
         <Link to={`/videos/${video.video_id}`}>
             <div>
@@ -34,7 +37,7 @@ export function YoutubeLinkItem({ video }) {
                             <div>{video.venue}</div>
                             <div>
                                 {new Date(video.date).toLocaleDateString(
-                                    'is-IS',
+                                    i18n.language,
                                     {
                                         dateStyle: 'long',
                                     }
