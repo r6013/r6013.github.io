@@ -5,6 +5,7 @@ import './VideoPage.css'
 import { YoutubeLinkItem } from './YoutubeLinkItem'
 import { useTranslation } from 'react-i18next'
 import { MakeGenerics, useMatch } from '@tanstack/react-location'
+import { useEffect, useState } from 'react'
 type loaderGenerics = MakeGenerics<{
     LoaderData: {
         shows: {
@@ -39,6 +40,17 @@ export function ShowCard({
     }
 }) {
     const { t, i18n, ready } = useTranslation()
+    const [aspectRatio, setAspectRatio] = useState('')
+    useEffect(() => {
+        const img = new Image()
+        img.src = show.image
+        setAspectRatio(img.width > img.height ? 'landscape' : 'portrait')
+    }, [])
+
+    const [daysUntilShow, setDaysUntilShow] = useState(
+        Number(((show.date - new Date()) / (1000 * 60 * 60 * 24)).toFixed(0))
+    )
+    const [showDatePassed, setShowDatePassed] = useState(daysUntilShow < 0)
 
     return (
         <>
@@ -59,6 +71,14 @@ export function ShowCard({
                 }}
                 key={show.name}
             >
+                <div style={{ maxWidth: '100%' }}>
+                    <img
+                        src={show.image}
+                        alt=""
+                        width={'200px'}
+                        style={{ objectFit: 'cover' }}
+                    />
+                </div>
                 <h2>{show.bands.join(', ')}</h2>
                 <h2>{show.venue}</h2>
                 <i>
@@ -68,14 +88,11 @@ export function ShowCard({
                     {/* {show.date.toLocaleDateString()} */}
                 </i>
                 <p>
-                    {t('days_until_show', {
-                        count: Number(
-                            (
-                                (show.date - new Date()) /
-                                (1000 * 60 * 60 * 24)
-                            ).toFixed(0)
-                        ),
-                    })}
+                    {showDatePassed
+                        ? t('days_since_show', {
+                              count: Math.abs(daysUntilShow),
+                          })
+                        : t('days_until_show', { count: daysUntilShow })}
                     {/* Eftir{' '}
         {(
             (show.date - new Date()) /
@@ -94,22 +111,38 @@ export function ShowCard({
                         dialog.close()
                     }
                 }}
-                style={{ maxHeight: '70vh' }}
+                style={{ maxHeight: '70vh', maxWidth: '70vw' }}
             >
                 <div
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
+                        flexDirection:
+                            aspectRatio == 'landscape' ? 'column' : 'row',
                     }}
                 >
-                    <img
-                        src={show.image}
-                        alt=""
+                    <div
                         style={{
                             maxWidth: '60%',
-                            outline: '1px solid black',
+                            maxHeight: '60%',
+                            display: 'grid',
+                            placeItems: 'center',
+                            margin: 'auto',
                         }}
-                    />
+                    >
+                        <img
+                            src={show.image}
+                            alt=""
+                            style={{
+                                // maxWidth: '60%',
+                                // maxHeight: '60%',
+                                objectFit: 'scale-down',
+                                maxWidth: '90%',
+                                maxHeight: '90%',
+                                outline: '1px solid black',
+                            }}
+                        />
+                    </div>
                     <div
                         style={{
                             // textAlign: 'center',
@@ -159,17 +192,13 @@ export function HomePage() {
                 >
                     {t('upcoming_shows')}
                 </h3>
-                <div
-                    className="related-videos"
-                    // style={{ display: 'flex', flexDirection: 'row' }}
-                >
+                <div className="related-videos">
                     {shows
                         ?.filter((show) => show.date > new Date())
                         .map((show, idx) => {
                             return <ShowCard show={show} />
                         })}
                 </div>
-                {/* </div> */}
                 <div style={{ padding: '0 1rem' }}>
                     <h3 style={{ padding: '0 1rem' }}>{t('recent_shows')}</h3>
                     <div className="related-videos">
@@ -178,155 +207,14 @@ export function HomePage() {
                             ?.filter((show) => show.date < new Date())
                             .sort((a, b) => b.date - a.date)
                             .map((show, idx) => {
-                                return (
-                                    // <button
-                                    //     className="card"
-                                    //     style={{
-                                    //         display: 'block',
-                                    //         minHeight: '200px',
-                                    //         minWidth: '300px',
-                                    //         // backgroundColor: 'var(--accent-color)',
-                                    //         flexGrow: 1,
-                                    //     }}
-                                    //     key={show.name + idx}
-                                    // >
-                                    //     <h2>{show.bands.join(', ')}</h2>
-                                    //     <h2>{show.venue}</h2>
-                                    //     <i>
-                                    //         {show.date.toLocaleDateString(
-                                    //             i18n.language,
-                                    //             {
-                                    //                 dateStyle: 'full',
-                                    //             }
-                                    //         )}
-                                    //         {/* {show.date.toLocaleDateString()} */}
-                                    //     </i>
-                                    // </button>
-                                    <>
-                                        <button
-                                            onClick={() => {
-                                                const el =
-                                                    document.getElementById(
-                                                        show.name
-                                                    ) as HTMLDialogElement
-                                                el.showModal()
-                                            }}
-                                            className="card"
-                                            style={{
-                                                display: 'block',
-                                                minHeight: '200px',
-                                                minWidth: '300px',
-                                                // backgroundColor: 'var(--accent-color)',
-                                                flexGrow: 1,
-                                            }}
-                                            key={show.name + idx}
-                                        >
-                                            <h2>{show.bands.join(', ')}</h2>
-                                            <h2>{show.venue}</h2>
-                                            <i>
-                                                {show.date.toLocaleDateString(
-                                                    i18n.language,
-                                                    {
-                                                        dateStyle: 'full',
-                                                    }
-                                                )}
-                                                {/* {show.date.toLocaleDateString()} */}
-                                            </i>
-                                            <p>
-                                                {t('days_since_show', {
-                                                    count: Number(
-                                                        (
-                                                            (new Date() -
-                                                                show.date) /
-                                                            (1000 *
-                                                                60 *
-                                                                60 *
-                                                                24)
-                                                        ).toFixed(0)
-                                                    ),
-                                                })}
-                                                {/* Eftir{' '}
-                                            {(
-                                                (show.date - new Date()) /
-                                                (1000 * 60 * 60 * 24)
-                                            ).toFixed(0)}{' '}
-                                            daga */}
-                                            </p>
-                                        </button>
-                                        <dialog
-                                            id={`${show.name}`}
-                                            onClick={(ev) => {
-                                                const dialog =
-                                                    document.getElementById(
-                                                        show.name
-                                                    ) as HTMLDialogElement
-                                                if (ev.target == dialog) {
-                                                    dialog.close()
-                                                }
-                                            }}
-                                            style={{ maxWidth: '70vw' }}
-                                        >
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent:
-                                                        'space-between',
-                                                }}
-                                            >
-                                                <img
-                                                    src={show.image}
-                                                    alt=""
-                                                    style={{
-                                                        maxWidth: '60%',
-                                                        outline:
-                                                            '1px solid black',
-                                                    }}
-                                                />
-                                                <div
-                                                    style={{
-                                                        // textAlign: 'center',
-                                                        // marginLeft: 'auto',
-                                                        // marginRight: 'auto',
-                                                        padding: '1rem',
-                                                    }}
-                                                >
-                                                    <h2
-                                                        style={{
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        {show.venue}
-                                                    </h2>
-                                                    <p>
-                                                        {show.date.toLocaleDateString(
-                                                            i18n.language,
-                                                            {
-                                                                dateStyle:
-                                                                    'medium',
-                                                            }
-                                                        )}
-                                                    </p>
-                                                    <p>
-                                                        {show.bands.join(', ')}{' '}
-                                                        @ {show.venue}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </dialog>
-                                    </>
-                                )
+                                return <ShowCard show={show} />
                             })}
                     </div>
                 </div>
             </div>
-            {/* <div style={{ padding: '0 1rem' }}> */}
             <div style={{ padding: '0 1rem' }}>
                 <h3>{t('recent_videos')}</h3>
-                <div
-                    className="related-videos"
-                    // style={{
-                    // }}
-                >
+                <div className="related-videos">
                     {recentVideos
                         ?.filter(
                             (video) =>
