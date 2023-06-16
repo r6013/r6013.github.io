@@ -22,7 +22,6 @@ export function HomePage() {
     return (
         <div>
             <Header></Header>
-            {t('lol')}
 
             <div style={{ padding: '0 1rem' }}>
                 <h3 style={{ padding: '0 1rem' }}>{t('upcoming_shows')}</h3>
