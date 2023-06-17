@@ -302,15 +302,66 @@ export const sheetsApiTest = async () => {
     //     })
 }
 
-export const getBandByName = async (name: string) => {
+export const getBandByName = async (searchName: string) => {
     const shows = await getShowsDataFromSheets()
-    console.log(shows, name)
+    console.log(shows, searchName)
     const filteredShows = shows.filter((show) =>
         show.bands.some((band) =>
-            band.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+            band.toLocaleLowerCase().includes(searchName.toLocaleLowerCase())
         )
     )
-    return { name, shows: filteredShows }
+    let name = searchName
+
+    const videosTemp = await query(`select distinct json_object(
+        'band',band.name,
+        'members', json_group_array(distinct json_object('name',person.name,'id',person.id)),
+        'video_id',video.id,
+        'show_id',video.show_id,
+        'url',video.url,
+        'band_id',video.band_id,
+        'venue',venue.venue_name,
+        'date',show.date
+        ) AS video_json
+    FROM video
+    JOIN band ON video.band_id = band.id
+    LEFT JOIN band_member ON band_member.band_id = band.id
+    LEFT JOIN person ON band_member.member_id = person.id
+    LEFT JOIN show ON video.show_id = show.id
+    LEFT JOIN venue ON venue.id = show.venue_id
+    WHERE band.name LIKE "${searchName}"
+    GROUP BY video.id
+    ORDER BY show.date desc`)
+    const videos = videosTemp.map((v) => {
+        const video: {
+            band: string
+            members: { name: string; id: string | number }[]
+            video_id: string | number
+            show_id: string | number
+            url: string
+            band_id: string | number
+            venue: string
+            date: string | Date
+        } = JSON.parse(v.video_json)
+        return video
+    })
+    if (videos.length > 0) {
+        name = videos[0].band
+    } else {
+        filteredShows[0].bands.map((band) => {
+            if (
+                band
+                    .toLocaleLowerCase()
+                    .includes(searchName.toLocaleLowerCase())
+            ) {
+                name = band
+            }
+        })
+    }
+    return {
+        name,
+        shows: filteredShows,
+        videos: videos,
+    }
 }
 
 export { query, exportDB, listDefaultCollections, searchBands }

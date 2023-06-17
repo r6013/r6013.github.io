@@ -1,19 +1,16 @@
-import { Link } from '@tanstack/react-location'
+import { Link, MakeGenerics } from '@tanstack/react-location'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getShowsDataFromSheets } from '../db'
+type ArrayElement<ArrayType extends readonly unknown[]> =
+    ArrayType extends readonly (infer ElementType)[] ? ElementType : never
 
-export function ShowCard({
-    show,
-}: {
-    show: {
-        name: string
-        date: Date
-        bands: string[]
-        venue: string
-        image: string
-        id: string
-    }
-}) {
+type showType = ArrayElement<Awaited<ReturnType<typeof getShowsDataFromSheets>>>
+type showGenerics = MakeGenerics<{
+    LoaderData: { show: showType }
+}>
+
+export function ShowCard({ show }: { show: showType }) {
     const { t, i18n, ready } = useTranslation()
     const [aspectRatio, setAspectRatio] = useState('')
     useEffect(() => {
