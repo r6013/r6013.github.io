@@ -18,15 +18,31 @@ export function ShowPage() {
     return (
         <>
             <Header></Header>
-            <h1>{show?.name}</h1>
-            <p>{show?.bands.join(', ')}</p>
-            <p>
-                {show?.date.toLocaleDateString(i18n.language, {
-                    dateStyle: 'medium',
-                })}
-            </p>
-            <img src={show?.image} alt="" />
-            <div>{JSON.stringify(show)}lol</div>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '1rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <h1>{show?.name}</h1>
+                <p>{show?.bands.join(', ')}</p>
+                <p>
+                    {show?.date.toLocaleDateString(i18n.language, {
+                        dateStyle: 'medium',
+                    })}
+                </p>
+                <div style={{ maxWidth: '80%' }}>
+                    <img
+                        src={show?.image}
+                        alt=""
+                        style={{ objectFit: 'scale-down', maxWidth: '100%' }}
+                    />
+                </div>
+                <div>{JSON.stringify(show)}lol</div>
+            </div>
             <Footer></Footer>
         </>
     )

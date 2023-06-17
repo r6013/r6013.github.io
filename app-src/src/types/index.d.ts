@@ -7,3 +7,9 @@ declare global {
         setActiveStyleSheet: any
     }
 }
+
+declare module '@tanstack/react-router' {
+    interface Register {
+        router: typeof router
+    }
+}

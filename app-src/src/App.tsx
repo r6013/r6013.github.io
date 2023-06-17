@@ -12,6 +12,7 @@ import {
     getBandsVideosByVideoId,
     getShowsDataFromSheets,
     getRecentVideos,
+    getBandByName,
 } from './db'
 import {
     ReactLocation,
@@ -39,6 +40,7 @@ import { useTranslation } from 'react-i18next'
 import { Test } from './Components/Test'
 import { ShowsListPage } from './Components/ShowsListPage'
 import { ShowPage } from './Components/ShowPage'
+import { BandPage } from './Components/BandPage'
 
 const reactLocation = new ReactLocation()
 
@@ -147,6 +149,40 @@ function App() {
                                                 await getBandsVideosByVideoId(
                                                     params.id
                                                 ),
+                                        }),
+                                    },
+                                ],
+                            },
+                            {
+                                path: 'bands',
+                                children: [
+                                    {
+                                        path: '/',
+                                        element: (
+                                            <>
+                                                <Header></Header>
+                                                <div>Bands page</div>
+                                                <Footer></Footer>
+                                            </>
+                                        ),
+                                    },
+                                    {
+                                        path: ':name',
+                                        element: <BandPage />,
+
+                                        loader: async ({ params }) => ({
+                                            band: await queryClient.fetchQuery({
+                                                queryFn: () =>
+                                                    getBandByName(
+                                                        decodeURIComponent(
+                                                            params.name
+                                                        )
+                                                    ),
+                                                queryKey: [
+                                                    'bands',
+                                                    params.name,
+                                                ],
+                                            }),
                                         }),
                                     },
                                 ],

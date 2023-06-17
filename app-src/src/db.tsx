@@ -302,4 +302,15 @@ export const sheetsApiTest = async () => {
     //     })
 }
 
+export const getBandByName = async (name: string) => {
+    const shows = await getShowsDataFromSheets()
+    console.log(shows, name)
+    const filteredShows = shows.filter((show) =>
+        show.bands.some((band) =>
+            band.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+        )
+    )
+    return { name, shows: filteredShows }
+}
+
 export { query, exportDB, listDefaultCollections, searchBands }
