@@ -38,6 +38,7 @@ import { NotionTest } from './Components/NotionTest'
 import { useTranslation } from 'react-i18next'
 import { Test } from './Components/Test'
 import { ShowsListPage } from './Components/ShowsListPage'
+import { ShowPage } from './Components/ShowPage'
 
 const reactLocation = new ReactLocation()
 
@@ -156,24 +157,45 @@ function App() {
                                     {
                                         path: '/',
                                         element: <ShowsListPage />,
+                                        loader: async () => {
+                                            const shows =
+                                                await queryClient.fetchQuery({
+                                                    queryFn: async () =>
+                                                        await getShowsDataFromSheets(),
+                                                    queryKey: ['shows'],
+                                                })
+                                            return { shows }
+                                        },
                                     },
-                                    // {
-                                    //     path: ':id',
-                                    //     element: <VideoPage />,
+                                    {
+                                        path: ':id',
+                                        element: <ShowPage />,
 
-                                    //     loader: async ({ params }) => ({
-                                    //         video: await getVideoById(
-                                    //             params.id
-                                    //         ),
-                                    //         show: await getShowByVideoId(
-                                    //             params.id
-                                    //         ),
-                                    //         bandVideos:
-                                    //             await getBandsVideosByVideoId(
-                                    //                 params.id
-                                    //             ),
-                                    //     }),
-                                    // },
+                                        loader: async ({ params }) => {
+                                            const shows =
+                                                await queryClient.fetchQuery({
+                                                    queryFn: async () =>
+                                                        await getShowsDataFromSheets(),
+                                                    queryKey: ['shows'],
+                                                })
+                                            return {
+                                                show: shows[Number(params.id)],
+                                            }
+                                        },
+
+                                        // loader: async ({ params }) => ({
+                                        //     video: await getVideoById(
+                                        //         params.id
+                                        //     ),
+                                        //     show: await getShowByVideoId(
+                                        //         params.id
+                                        //     ),
+                                        //     bandVideos:
+                                        //         await getBandsVideosByVideoId(
+                                        //             params.id
+                                        //         ),
+                                        // }),
+                                    },
                                 ],
                             },
                             {

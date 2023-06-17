@@ -29,7 +29,7 @@ const listDefaultCollections = async () => {
     return defaultCollections
 }
 
-export const getBandsVideosByVideoId = async (id: number) => {
+export const getBandsVideosByVideoId = async (id: number | string) => {
     const result = await query(`
         select distinct json_object(
             'band',band.name,
@@ -93,7 +93,7 @@ export const getRecentVideos = async (count: number) => {
     return output
 }
 
-export const getShowByVideoId = async (id: number) => {
+export const getShowByVideoId = async (id: number | string) => {
     const result = await query(`
     SELECT
         distinct json_object(
@@ -127,7 +127,7 @@ export const getShowByVideoId = async (id: number) => {
     JSON.parse(result[0].video_json)
 }
 
-export const getVideoById = async (id: number) => {
+export const getVideoById = async (id: number | string) => {
     console.log('getting video by id: ' + id)
     const result = await query(`
 
@@ -256,6 +256,8 @@ export const getShowsDataFromSheets = async () => {
         date: Date
         bands: string[]
         venue: string
+        id: number | string
+        image: string
     }[] = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`
     )
@@ -264,9 +266,9 @@ export const getShowsDataFromSheets = async () => {
             console.log({ data })
             const [header, ...rows] = data.values
             console.log({ header, rows })
-            return rows.map((row: string[]) => {
-                return Object.fromEntries(
-                    row.map((val: string, idx: number) => {
+            return rows.map((row: string[], idx: number) => {
+                return Object.fromEntries([
+                    ...row.map((val: string, idx: number) => {
                         if (header[idx] == 'date') {
                             return [header[idx], new Date(val)]
                         }
@@ -274,8 +276,9 @@ export const getShowsDataFromSheets = async () => {
                             return [header[idx], JSON.parse(val)]
                         }
                         return [header[idx], row[idx]]
-                    })
-                )
+                    }),
+                    ['id', idx],
+                ])
             })
         })
     return shows.sort((a, b) => a.date - b.date)

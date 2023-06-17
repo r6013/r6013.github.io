@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 import { Header } from './Header'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getShowsDataFromSheets, searchBands, searchVideos } from '../db'
-import { Link, useNavigate, useSearch } from '@tanstack/react-location'
+import {
+    Link,
+    useMatch,
+    useNavigate,
+    useSearch,
+} from '@tanstack/react-location'
 import { YoutubePlayer } from './YoutubePlayer'
 import { VideoListItem } from './VideoListItem'
 import { Footer } from './Footer'
@@ -31,11 +36,14 @@ export function ShowsListPage() {
             replace: true,
         })
     }
+    const {
+        data: { shows },
+    } = useMatch()
 
-    const { data: shows, isLoading } = useQuery({
-        queryFn: () => getShowsDataFromSheets(),
-        queryKey: ['shows'],
-    })
+    // const { data: shows, isLoading } = useQuery({
+    //     queryFn: () => getShowsDataFromSheets(),
+    //     queryKey: ['shows'],
+    // })
     // if (isLoading) {
     //     return
     // }

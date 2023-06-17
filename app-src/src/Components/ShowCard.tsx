@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-location'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,6 +11,7 @@ export function ShowCard({
         bands: string[]
         venue: string
         image: string
+        id: string
     }
 }) {
     const { t, i18n, ready } = useTranslation()
@@ -27,14 +29,16 @@ export function ShowCard({
 
     return (
         <>
-            <button
-                onClick={() => {
-                    const el = document.getElementById(
-                        show.name
-                    ) as HTMLDialogElement
-                    el.showModal()
-                }}
-                className="card"
+            <Link
+                to={`/shows/${show.id}`}
+                // search={(old) => ({ ...old, showId: show.id })}
+                // onClick={() => {
+                //     const el = document.getElementById(
+                //         show.name
+                //     ) as HTMLDialogElement
+                //     el.showModal()
+                // }}
+                className="card button"
                 style={{
                     display: 'block',
                     minHeight: '200px',
@@ -73,7 +77,7 @@ export function ShowCard({
         ).toFixed(0)}{' '}
         daga */}
                 </p>
-            </button>
+            </Link>
             <dialog
                 id={`${show.name}`}
                 onClick={(ev) => {
