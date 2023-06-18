@@ -32,11 +32,13 @@ export function ShowCardAlternate({ show }: { show: showType }) {
         display: 'flex',
         // flexDirection: 'column',
         // justifyContent: 'space-between',
-        minHeight: '200px',
+        //minHeight: '200px',
+        height: '500px',
         minWidth: '300px',
         padding: 0,
         borderRadius: '10px',
         // backgroundColor: 'var(--accent-color)',
+        overflowY: 'auto',
         flexGrow: 1,
       }}
       key={show.name}
@@ -59,8 +61,9 @@ export function ShowCardAlternate({ show }: { show: showType }) {
           backgroundColor: 'rgba(200,200,200,0.8)',
           width: 'calc(100% - 0.4rem)',
           backdropFilter: 'blur(5px)',
+          WebkitBackdropFilter: 'blur(5px)',
           borderRadius: '10px',
-          height: '40%',
+          height: '50%',
         }}
       >
         <h2>{show.bands.join(', ')}</h2>
