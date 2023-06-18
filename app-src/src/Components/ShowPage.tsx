@@ -3,6 +3,8 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { getShowsDataFromSheets } from '../db'
 import { useTranslation } from 'react-i18next'
+import { Carousel } from './Carousel'
+import { YoutubeLinkItem } from './YoutubeLinkItem'
 type ArrayElement<ArrayType extends readonly unknown[]> =
     ArrayType extends readonly (infer ElementType)[] ? ElementType : never
 
@@ -13,12 +15,13 @@ type showGenerics = MakeGenerics<{
 export function ShowPage() {
     const { t, i18n, ready } = useTranslation()
     const {
-        data: { show },
-    } = useMatch<showGenerics>()
+        data: { show, showVideos },
+    } = useMatch()
     return (
         <>
             <Header></Header>
             <div
+                key={show?.id}
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -41,8 +44,19 @@ export function ShowPage() {
                         style={{ objectFit: 'scale-down', maxWidth: '100%' }}
                     />
                 </div>
-                <div>{JSON.stringify(show)}lol</div>
             </div>
+            <Carousel>
+                {showVideos?.map((row) => {
+                    return (
+                        <div
+                            key={row.video_id}
+                            style={{ display: 'block', width: '300px' }}
+                        >
+                            <YoutubeLinkItem video={row.sets[0]} />
+                        </div>
+                    )
+                })}
+            </Carousel>
             <Footer></Footer>
         </>
     )

@@ -1,5 +1,5 @@
 const DB_CONSOLE_LOGS = true
-const query = async (query: string) => {
+export const query = async (query: string) => {
     DB_CONSOLE_LOGS && console.log(query)
     const result = await window.promiseWorker.postMessage({
         type: 'sql',
@@ -8,13 +8,13 @@ const query = async (query: string) => {
     return result
 }
 
-const exec = async (query: string) => {
+export const exec = async (query: string) => {
     DB_CONSOLE_LOGS && console.log(query)
 
     window.promiseWorker.postMessage({ type: 'exec', query: query })
 }
 
-const exportDB = async () => {
+export const exportDB = async () => {
     const exportedDB: Uint8Array = await window.promiseWorker.postMessage({
         type: 'export',
     })
@@ -22,7 +22,7 @@ const exportDB = async () => {
     return exportedDB
 }
 
-const listDefaultCollections = async () => {
+export const listDefaultCollections = async () => {
     const defaultCollections = await window.promiseWorker.postMessage({
         type: 'listCollections',
     })
@@ -155,7 +155,7 @@ export const getVideoById = async (id: number | string) => {
     return JSON.parse(result[0].video_json)
 }
 
-const searchBands = async ({ searchQuery }: { searchQuery: string }) => {
+export const searchBands = async ({ searchQuery }: { searchQuery: string }) => {
     const result = await query(`
         select * from band where name like "%${searchQuery}%"
     `)
@@ -208,7 +208,12 @@ export const getShowById = async ({ showId }: { showId: string | number }) => {
                             distinct json_object(
                                 'band',band.name,
                                 'video_id',video.id,
-                                'url',video.url
+                                'url',video.url,
+                                'show_id',video.show_id,
+                                'url',video.url,
+                                'band_id',video.band_id,
+                                'venue',venue.venue_name,
+                                'date',show.date
                             )),
                 'show_id',video.show_id,
                 'url',video.url,
@@ -363,5 +368,3 @@ export const getBandByName = async (searchName: string) => {
         videos: videos,
     }
 }
-
-export { query, exportDB, listDefaultCollections, searchBands }

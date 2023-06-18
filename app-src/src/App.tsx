@@ -214,11 +214,28 @@ function App() {
                                                         await getShowsDataFromSheets(),
                                                     queryKey: ['shows'],
                                                 })
+                                            const show = shows.find(
+                                                (show) => show.id == params.id
+                                            )
+                                            const realShowId =
+                                                await query(`select show.id from show join venue on show.venue_id = venue.id
+                                            where show.date = "${show?.date.getFullYear()}-${String(
+                                                    (show?.date.getMonth() ??
+                                                        0) + 1
+                                                ).padStart(2, '0')}-${String(
+                                                    show?.date.getDate()
+                                                ).padStart(2, '0')}"
+                                                and venue.venue_name like "%${
+                                                    show.venue
+                                                }%"
+                                            `)
+                                            const showVideos =
+                                                await getShowById({
+                                                    showId: realShowId[0].id,
+                                                })
                                             return {
-                                                show: shows.find(
-                                                    (show) =>
-                                                        show.id == params.id
-                                                ),
+                                                show,
+                                                showVideos,
                                             }
                                         },
 
