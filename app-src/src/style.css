@@ -1,6 +1,13 @@
 :root {
     /* --background-color-light: #fff;
     --background-color-dark: #212121; */
+    --background-color-light: rgb(255, 255, 255);
+    --background-color-light-alpha: rgba(255, 255, 255, 0.8);
+    --background-color-dark: rgb(33, 33, 40);
+    --background-color-dark-alpha: rgba(31, 33, 40, 0.8);
+
+    --main-text-color-dark: rgba(255, 255, 255, 0.9);
+    --main-text-color-light: rgb(0, 0, 0);
 
     color: var(--main-text-color);
     --background-color-active: rgba(0, 0, 0, 0.1);

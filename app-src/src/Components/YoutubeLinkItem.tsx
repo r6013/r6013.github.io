@@ -6,7 +6,11 @@ export function YoutubeLinkItem({ video }) {
     const { t, i18n, ready } = useTranslation()
 
     return (
-        <Link to={`/videos/${video.video_id}`}>
+        <Link
+            className="button"
+            to={`/videos/${video.video_id}`}
+            style={{ scrollSnapAlign: 'center', padding: 0, margin: 0 }}
+        >
             <div>
                 <div
                     style={{
@@ -19,10 +23,17 @@ export function YoutubeLinkItem({ video }) {
                     <div
                         className="thumbnail-info"
                         style={{
+                            backgroundColor:
+                                'var(--background-color-dark-alpha)',
+                            width: 'calc(100% - 2rem)',
+                            backdropFilter: 'blur(3px)',
+                            borderRadius: '10px',
+                            WebkitBackdropFilter: 'blur(3px)',
                             position: 'absolute',
                             bottom: 0,
-                            color: 'white',
+                            color: 'var(--main-text-color-dark)',
                             padding: '1rem',
+                            textAlign: 'left',
                         }}
                     >
                         <h2
@@ -34,7 +45,6 @@ export function YoutubeLinkItem({ video }) {
                             {video.band}
                         </h2>
                         <div>
-                            <div>{video.venue}</div>
                             <div>
                                 {new Date(video.date).toLocaleDateString(
                                     i18n.language,
@@ -43,6 +53,7 @@ export function YoutubeLinkItem({ video }) {
                                     }
                                 )}
                             </div>
+                            <div>{video.venue}</div>
                         </div>
                     </div>
                 </div>
