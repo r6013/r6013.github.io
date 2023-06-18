@@ -38,7 +38,7 @@ export function ShowCardAlternate({ show }: { show: showType }) {
                 minWidth: '300px',
                 padding: 0,
                 borderRadius: '10px',
-                // backgroundColor: 'var(--accent-color)',
+                // backgroundColor: 'var(--accent-color)',f
                 overflowY: 'auto',
                 flexGrow: 1,
             }}
@@ -76,10 +76,12 @@ export function ShowCardAlternate({ show }: { show: showType }) {
                         justifyContent: 'space-between',
                         padding: '1rem',
                         alignItems: 'center',
+                        textAlign: 'left',
                     }}
                 >
-                    <h3>{show.venue}</h3>
                     <div>
+                        <b>{show.venue}</b>
+                        <br />
                         <i>
                             {show.date.toLocaleDateString(i18n.language, {
                                 dateStyle: 'full',
