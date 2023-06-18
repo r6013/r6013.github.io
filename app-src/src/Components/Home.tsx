@@ -8,6 +8,7 @@ import { MakeGenerics, useMatch } from '@tanstack/react-location'
 import { useEffect, useState } from 'react'
 import { ShowCard } from './ShowCard'
 import { Carousel } from './Carousel'
+import { ShowCardAlternate } from './ShowCardAlternate'
 type loaderGenerics = MakeGenerics<{
     LoaderData: {
         shows: {
@@ -53,7 +54,7 @@ export function HomePage() {
                     {shows
                         ?.filter((show) => show.date > new Date())
                         .map((show, idx) => {
-                            return <ShowCard show={show} />
+                            return <ShowCardAlternate show={show} />
                         })}
                 </Carousel>
 
@@ -65,7 +66,7 @@ export function HomePage() {
                             ?.filter((show) => show.date < new Date())
                             .sort((a, b) => b.date - a.date)
                             .map((show, idx) => {
-                                return <ShowCard show={show} />
+                                return <ShowCardAlternate show={show} />
                             })}
                     </Carousel>
                 </div>

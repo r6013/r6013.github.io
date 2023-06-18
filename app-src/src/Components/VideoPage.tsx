@@ -105,7 +105,7 @@ export function VideoPage() {
                                 <Link>{video.band}</Link>
                                 <Link>{video.venue}</Link>
                             </div>
-                            <ul style={{ padding: 0 }}>
+                            {/* <ul style={{ padding: 0 }}>
                                 <h3 style={{ margin: '0.5rem 0' }}>
                                     {t('band_members')}
                                 </h3>
@@ -116,7 +116,7 @@ export function VideoPage() {
                                         </li>
                                     )
                                 })}
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 )
