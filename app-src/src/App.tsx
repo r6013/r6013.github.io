@@ -226,13 +226,14 @@ function App() {
                                                     show?.date.getDate()
                                                 ).padStart(2, '0')}"
                                                 and venue.venue_name like "%${
-                                                    show.venue
+                                                    show!.venue
                                                 }%"
                                             `)
                                             const showVideos =
-                                                await getShowById({
+                                                realShowId[0]?.id &&
+                                                (await getShowById({
                                                     showId: realShowId[0].id,
-                                                })
+                                                }))
                                             return {
                                                 show,
                                                 showVideos,
