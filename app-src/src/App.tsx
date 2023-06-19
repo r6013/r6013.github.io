@@ -41,6 +41,7 @@ import { Test } from './Components/Test'
 import { ShowsListPage } from './Components/ShowsListPage'
 import { ShowPage } from './Components/ShowPage'
 import { BandPage } from './Components/BandPage'
+import { AlbumsListPage } from './Components/AlbumsListPage'
 
 const reactLocation = new ReactLocation()
 
@@ -133,6 +134,48 @@ function App() {
                                     {
                                         path: '/',
                                         element: <VideoListPage />,
+                                    },
+                                    {
+                                        path: ':id',
+                                        element: <VideoPage />,
+
+                                        loader: async ({ params }) => ({
+                                            video: await getVideoById(
+                                                params.id
+                                            ),
+                                            show: await getShowByVideoId(
+                                                params.id
+                                            ),
+                                            bandVideos:
+                                                await getBandsVideosByVideoId(
+                                                    params.id
+                                                ),
+                                        }),
+                                    },
+                                ],
+                            },
+                            {
+                                path: 'albums',
+                                children: [
+                                    {
+                                        path: '/',
+                                        element: <AlbumsListPage />,
+                                        loader: async () => ({
+                                            albums: await queryClient.fetchQuery(
+                                                {
+                                                    queryFn: () => [
+                                                        {
+                                                            band: 'lolzon sponson',
+                                                            album: 'jogle your bogle',
+                                                            year: 2019,
+                                                            artwork:
+                                                                'https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0',
+                                                        },
+                                                    ],
+                                                    queryKey: ['albums'],
+                                                }
+                                            ),
+                                        }),
                                     },
                                     {
                                         path: ':id',
