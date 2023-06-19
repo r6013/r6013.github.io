@@ -75,8 +75,8 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
         },
         {
             route: '/misc',
-            icon: 'car',
-            name: 'lol',
+            icon: 'support_agent',
+            name: 'misc',
             type: type,
         },
         //        {
