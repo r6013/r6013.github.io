@@ -249,6 +249,42 @@ export const getRandomVideo = async () => {
     return videos[0].id
 }
 
+export const getDataFromSheets = async ({
+    range = 'A1:Z999',
+    table,
+    sheetId = '178hiGb8CV0VNdupQZ_Btfmxns4FKjR0zfyi-dweOwFs',
+    jsonColumns = [],
+}: {
+    range?: string
+    table: string
+    sheetId?: string
+    jsonColumns?: string[]
+}) => {
+    const apiKey = import.meta.env.VITE_GOOGLE_API_KEY
+    const data = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${table}!${range}?key=${apiKey}`
+    )
+        .then((res) => res.json())
+        .then((data) => {
+            const [header, ...rows] = data.values
+            return rows.map((row: string[], idx: number) => {
+                return Object.fromEntries([
+                    ...row.map((val: string, idx: number) => {
+                        if (header[idx] == 'date') {
+                            return [header[idx], new Date(val)]
+                        }
+                        if (header[idx] in jsonColumns) {
+                            return [header[idx], JSON.parse(val)]
+                        }
+                        return [header[idx], row[idx]]
+                    }),
+                    ['id', idx],
+                ])
+            })
+        })
+    return data
+}
+
 export const getShowsDataFromSheets = async () => {
     const A = 1
     const Z = 999

@@ -1,26 +1,53 @@
+import { useQuery } from '@tanstack/react-query'
 import { Carousel } from './Carousel'
 import { Footer } from './Footer'
 import { Header } from './Header'
+import { getDataFromSheets } from '../db'
+import { Grid } from './Grid'
+import './test.css'
 
 export function Test() {
+    const { data: albums } = useQuery({
+        queryFn: () => getDataFromSheets({ table: 'albums' }),
+        queryKey: ['test'],
+    })
     return (
         <>
             <Header></Header>
 
-            <Carousel>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((val) => {
+            <Grid>
+                {albums?.map((album) => {
                     return (
                         <div
-                            // className="card"
+                            className="album"
                             style={{
                                 width: '300px',
                                 height: '300px',
                                 border: '1px solid black',
+                                overflow: 'hidden',
+                                position: 'relative',
                             }}
-                        ></div>
+                        >
+                            <img
+                                src={album.artwork}
+                                style={{ objectFit: 'cover' }}
+                                width={'100%'}
+                                alt=""
+                            />
+                            <div className="album-info">
+                                <p>
+                                    <b>{album.artist}</b>
+                                    <br />
+                                    {album.title}
+                                    <br />
+                                    <i>{album.year}</i>
+                                </p>
+                            </div>
+                            {/* {JSON.stringify(album)} */}
+                        </div>
                     )
                 })}
-            </Carousel>
+            </Grid>
 
             <Footer></Footer>
         </>
