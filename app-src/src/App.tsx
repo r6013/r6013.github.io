@@ -42,6 +42,7 @@ import { ShowsListPage } from './Components/ShowsListPage'
 import { ShowPage } from './Components/ShowPage'
 import { BandPage } from './Components/BandPage'
 import { AlbumsListPage } from './Components/AlbumsListPage'
+import { Misc } from './Components/Misc'
 
 const reactLocation = new ReactLocation()
 
@@ -320,6 +321,10 @@ function App() {
                             {
                                 path: 'test',
                                 element: <Test />,
+                            },
+                            {
+                                path: 'misc',
+                                element: <Misc />,
                             },
                             {
                                 path: 'notiontest',

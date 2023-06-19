@@ -17,5 +17,6 @@
     "directions_save_app_heading": "Install app",
     "directions_save_app_intro": "How to save this page as an app on your phone:",
     "directions_save_app_iphone": "Go to the \"Share\" menu and choose \"Add to home screen\".",
-    "directions_save_app_android": "Some phones show a popup asking if you want to install the app. On others you have to press the three dots menu and select \"Install\" or \"Add to home screen\" or something similar."
+    "directions_save_app_android": "Some phones show a popup asking if you want to install the app. On others you have to press the three dots menu and select \"Install\" or \"Add to home screen\" or something similar.",
+    "nav_menu_go": "Go"
 }

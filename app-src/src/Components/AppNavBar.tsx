@@ -73,6 +73,12 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
             type: type,
             search: { id: 1 },
         },
+        {
+            route: '/misc',
+            icon: 'car',
+            name: 'lol',
+            type: type,
+        },
         //        {
         //            route: '/leit',
         //            icon: 'search',
@@ -95,7 +101,7 @@ export function AppNavBar({ type }: { type: 'footer' | 'header' }) {
 
     const currentPathName = useMatch().pathname
     const basePath = useRouter().basepath
-    let currentRouteName = 'Fara'
+    let currentRouteName = t('nav_menu_go')
     for (let route of navItems) {
         // console.log(basePath, currentPathName)
         if (

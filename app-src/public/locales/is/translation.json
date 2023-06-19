@@ -17,5 +17,6 @@
     "directions_save_app_heading": "Vista app á síma",
     "directions_save_app_intro": "Ef þú vilt vista síðuna sem app á símanum þínum geturðu gert eftirfarandi:",
     "directions_save_app_iphone": "Valið „share“ takkann og ýtt á Add to home screen.",
-    "directions_save_app_android": "Sumir símar birta skilaboð sem bjóða þér að „installa“ appinu. Á öðrum þarftu að velja share takkann og annað hvort „Install app“ eða „Add to home screen“."
+    "directions_save_app_android": "Sumir símar birta skilaboð sem bjóða þér að „installa“ appinu. Á öðrum þarftu að velja share takkann og annað hvort „Install app“ eða „Add to home screen“.",
+    "nav_menu_go": "Fara"
 }
