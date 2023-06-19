@@ -16,37 +16,41 @@ export function Test() {
             <Header></Header>
 
             <Grid>
-                {albums?.map((album) => {
-                    return (
-                        <div
-                            className="album"
-                            style={{
-                                width: '300px',
-                                height: '300px',
-                                border: '1px solid black',
-                                overflow: 'hidden',
-                                position: 'relative',
-                            }}
-                        >
-                            <img
-                                src={album.artwork}
-                                style={{ objectFit: 'cover' }}
-                                width={'100%'}
-                                alt=""
-                            />
-                            <div className="album-info">
-                                <p>
-                                    <b>{album.artist}</b>
-                                    <br />
-                                    {album.title}
-                                    <br />
-                                    <i>{album.year}</i>
-                                </p>
+                {albums
+                    ?.sort((a, b) => b.year - a.year)
+                    .map((album) => {
+                        return (
+                            <div
+                                className="album"
+                                style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    // border: '1px solid black',
+                                    overflow: 'hidden',
+                                    position: 'relative',
+                                    boxShadow: 'var(--card-box-shadow)',
+                                    // borderRadius: '10px',
+                                }}
+                            >
+                                <img
+                                    src={album.artwork}
+                                    style={{ objectFit: 'cover' }}
+                                    width={'100%'}
+                                    alt=""
+                                />
+                                <div className="album-info">
+                                    <p>
+                                        <b>{album.artist}</b>
+                                        <br />
+                                        {album.title}
+                                        <br />
+                                        <i>{album.year}</i>
+                                    </p>
+                                </div>
+                                {/* {JSON.stringify(album)} */}
                             </div>
-                            {/* {JSON.stringify(album)} */}
-                        </div>
-                    )
-                })}
+                        )
+                    })}
             </Grid>
 
             <Footer></Footer>
