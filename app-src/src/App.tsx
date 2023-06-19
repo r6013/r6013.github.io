@@ -168,8 +168,19 @@ function App() {
                                                             band: 'lolzon sponson',
                                                             album: 'jogle your bogle',
                                                             year: 2019,
+                                                            genre: 'Rock',
+                                                            style: 'Hardcore',
                                                             artwork:
                                                                 'https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0',
+                                                        },
+                                                        {
+                                                            band: 'Gavin Portland',
+                                                            album: 'IV - Hand In Hand With Traitors, Back To Back With Whores',
+                                                            year: 2010,
+                                                            genre: 'Rock',
+                                                            style: 'Hardcore',
+                                                            artwork:
+                                                                'https://i.discogs.com/YZLxekrJ44Yb2oMRxgfxW00S_LR6oj0aGsnLEyJraRg/rs:fit/g:sm/q:90/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM2NDg5/MzctMTMzODgyMTU5/Ni0xMzgxLmpwZWc.jpeg',
                                                         },
                                                     ],
                                                     queryKey: ['albums'],
