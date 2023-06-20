@@ -45,18 +45,20 @@ export function ShowPage() {
                     />
                 </div>
             </div>
-            <Carousel>
-                {showVideos?.map((row) => {
-                    return (
-                        <div
-                            key={row.video_id}
-                            style={{ display: 'block', width: '300px' }}
-                        >
-                            <YoutubeLinkItem video={row.sets[0]} />
-                        </div>
-                    )
-                })}
-            </Carousel>
+            {showVideos && (
+                <Carousel>
+                    {showVideos?.map((row) => {
+                        return (
+                            <div
+                                key={row.video_id}
+                                style={{ display: 'block', width: '300px' }}
+                            >
+                                <YoutubeLinkItem video={row.sets[0]} />
+                            </div>
+                        )
+                    })}
+                </Carousel>
+            )}
             <Footer></Footer>
         </>
     )
