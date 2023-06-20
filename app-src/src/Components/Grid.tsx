@@ -1,7 +1,7 @@
 export function Grid({ children }) {
-  return (
-    <div className="grid" style={{ scrollSnapType: 'both mandatory' }}>
-      {children}
-    </div>
-  )
+    return (
+        <div className="grid" style={{ scrollSnapType: 'y mandatory' }}>
+            {children}
+        </div>
+    )
 }

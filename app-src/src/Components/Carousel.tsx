@@ -8,23 +8,28 @@ export function Carousel({ children }: { children?: any }) {
     return (
         <div
             style={{
+                position: 'relative',
                 display: 'flex',
-                width: '100%',
                 alignItems: 'center',
-                padding: '2rem',
             }}
         >
             <button
-                style={{ maxHeight: '2rem', margin: '1rem' }}
+                style={{
+                    maxHeight: '2rem',
+                    margin: '1rem',
+                    position: 'absolute',
+                    left: '-5rem',
+                    zIndex: 99999,
+                }}
                 onClick={() => {
                     // carouselRef?.current?.scrollTo({
                     //     left: 0,
                     //     behavior: 'smooth',
                     // })
                     const singleElementWidth =
-                        carouselRef.current.children[0].offsetWidth
+                        carouselRef.current?.children[0].offsetWidth
                     if (
-                        carouselRef.current.scrollLeft - singleElementWidth <
+                        carouselRef.current?.scrollLeft - singleElementWidth <
                         0
                     ) {
                         carouselRef?.current?.scrollTo({
@@ -48,13 +53,18 @@ export function Carousel({ children }: { children?: any }) {
                 {children}
             </div>
             <button
-                style={{ maxHeight: '2rem', margin: '1rem' }}
+                style={{
+                    maxHeight: '2rem',
+                    margin: '1rem',
+                    position: 'absolute',
+                    left: carouselRef.current?.offsetWidth,
+                }}
                 onClick={() => {
                     const singleElementWidth =
-                        carouselRef.current.children[0].offsetWidth
+                        carouselRef.current?.children[0].offsetWidth
                     if (
-                        carouselRef.current.scrollLeft + singleElementWidth >
-                        carouselRef.current.scrollWidth
+                        carouselRef.current?.scrollLeft + singleElementWidth >
+                        carouselRef.current?.scrollWidth
                     ) {
                         carouselRef?.current?.scrollTo({
                             left: carouselRef.current.scrollWidth,
