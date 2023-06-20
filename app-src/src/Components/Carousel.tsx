@@ -6,7 +6,14 @@ export function Carousel({ children }: { children?: any }) {
         return <div className="carousel no-scrollbar">{children}</div>
     }
     return (
-        <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+        <div
+            style={{
+                display: 'flex',
+                width: '100%',
+                alignItems: 'center',
+                padding: '2rem',
+            }}
+        >
             <button
                 style={{ maxHeight: '2rem', margin: '1rem' }}
                 onClick={() => {
@@ -16,6 +23,15 @@ export function Carousel({ children }: { children?: any }) {
                     // })
                     const singleElementWidth =
                         carouselRef.current.children[0].offsetWidth
+                    if (
+                        carouselRef.current.scrollLeft - singleElementWidth <
+                        0
+                    ) {
+                        carouselRef?.current?.scrollTo({
+                            left: 0,
+                            // behavior: 'smooth',
+                        })
+                    }
                     carouselRef?.current?.scrollBy({
                         left: -singleElementWidth,
                         // behavior: 'smooth',
@@ -36,6 +52,15 @@ export function Carousel({ children }: { children?: any }) {
                 onClick={() => {
                     const singleElementWidth =
                         carouselRef.current.children[0].offsetWidth
+                    if (
+                        carouselRef.current.scrollLeft + singleElementWidth >
+                        carouselRef.current.scrollWidth
+                    ) {
+                        carouselRef?.current?.scrollTo({
+                            left: carouselRef.current.scrollWidth,
+                            // behavior: 'smooth',
+                        })
+                    }
                     carouselRef?.current?.scrollBy({
                         left: singleElementWidth,
                         // behavior: 'smooth',
