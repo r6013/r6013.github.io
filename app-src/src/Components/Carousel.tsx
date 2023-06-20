@@ -6,45 +6,7 @@ export function Carousel({ children }: { children?: any }) {
         return <div className="carousel no-scrollbar">{children}</div>
     }
     return (
-        <div
-            style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
-            <button
-                style={{
-                    maxHeight: '2rem',
-                    margin: '1rem',
-                    position: 'absolute',
-                    left: '-5rem',
-                    zIndex: 99999,
-                }}
-                onClick={() => {
-                    // carouselRef?.current?.scrollTo({
-                    //     left: 0,
-                    //     behavior: 'smooth',
-                    // })
-                    const singleElementWidth =
-                        carouselRef.current?.children[0].offsetWidth
-                    if (
-                        carouselRef.current?.scrollLeft - singleElementWidth <
-                        0
-                    ) {
-                        carouselRef?.current?.scrollTo({
-                            left: 0,
-                            // behavior: 'smooth',
-                        })
-                    }
-                    carouselRef?.current?.scrollBy({
-                        left: -singleElementWidth,
-                        // behavior: 'smooth',
-                    })
-                }}
-            >
-                &lt;
-            </button>
+        <div>
             <div
                 className="carousel"
                 ref={carouselRef}
@@ -52,33 +14,73 @@ export function Carousel({ children }: { children?: any }) {
             >
                 {children}
             </div>
-            <button
-                style={{
-                    maxHeight: '2rem',
-                    margin: '1rem',
-                    position: 'absolute',
-                    left: carouselRef.current?.offsetWidth,
-                }}
-                onClick={() => {
-                    const singleElementWidth =
-                        carouselRef.current?.children[0].offsetWidth
-                    if (
-                        carouselRef.current?.scrollLeft + singleElementWidth >
-                        carouselRef.current?.scrollWidth
-                    ) {
-                        carouselRef?.current?.scrollTo({
-                            left: carouselRef.current.scrollWidth,
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <button
+                    style={
+                        {
+                            // maxHeight: '2rem',
+                            // margin: '1rem',
+                            // position: 'absolute',
+                            // left: '-5rem',
+                            // zIndex: 99999,
+                        }
+                    }
+                    onClick={() => {
+                        // carouselRef?.current?.scrollTo({
+                        //     left: 0,
+                        //     behavior: 'smooth',
+                        // })
+                        const singleElementWidth =
+                            carouselRef.current?.children[0].offsetWidth
+                        if (
+                            carouselRef.current?.scrollLeft -
+                                singleElementWidth <
+                            0
+                        ) {
+                            carouselRef?.current?.scrollTo({
+                                left: 0,
+                                // behavior: 'smooth',
+                            })
+                        }
+                        carouselRef?.current?.scrollBy({
+                            left: -singleElementWidth,
                             // behavior: 'smooth',
                         })
+                    }}
+                >
+                    &lt;
+                </button>
+                <button
+                    style={
+                        {
+                            // maxHeight: '2rem',
+                            // margin: '1rem',
+                            // position: 'absolute',
+                            // left: carouselRef.current?.offsetWidth,
+                        }
                     }
-                    carouselRef?.current?.scrollBy({
-                        left: singleElementWidth,
-                        // behavior: 'smooth',
-                    })
-                }}
-            >
-                &gt;
-            </button>
+                    onClick={() => {
+                        const singleElementWidth =
+                            carouselRef.current?.children[0].offsetWidth
+                        if (
+                            carouselRef.current?.scrollLeft +
+                                singleElementWidth >
+                            carouselRef.current?.scrollWidth
+                        ) {
+                            carouselRef?.current?.scrollTo({
+                                left: carouselRef.current.scrollWidth,
+                                // behavior: 'smooth',
+                            })
+                        }
+                        carouselRef?.current?.scrollBy({
+                            left: singleElementWidth,
+                            // behavior: 'smooth',
+                        })
+                    }}
+                >
+                    &gt;
+                </button>
+            </div>
         </div>
     )
 }
