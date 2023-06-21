@@ -14,7 +14,16 @@ export function Carousel({ children }: { children?: any }) {
             >
                 {children}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: carouselRef.current?.offsetWidth,
+                    position: 'absolute',
+                    // top: carouselRef.current?.offsetHeight / 2,
+                }}
+            >
+                {/* {carouselRef.current?.offsetHeight} */}
                 <button
                     style={
                         {
